@@ -1,32 +1,32 @@
 class Environment:
 
-    def __init__(self, rows, cols):
+    def __init__(self, lengthX, lengthY):
         """
         Initialise l'environnement.
-        @param rows: nombre de lignes.
-        @param cols: nombre de colonnes.
+        @param lengthX: nombre de colonnes.
+        @param lengthY: nombre de lignes.
         """
         try:
-            rows = int(rows)
-            if rows<0:
-                raise ValueError("rows is negative")
+            lengthX = int(lengthX)
+            if lengthX<0:
+                raise ValueError("lengthX is negative")
         except ValueError:
-            rows = 10
-            print("Error with rows")
+            lengthX = 10
+            print("Error with lengthX")
         finally:
-            print("rows : " + str(rows))
+            print("lengthX : " + str(lengthX))
             
         try:
-            cols = int(cols)
-            if cols<0:
-                raise ValueError("cols is negative")
+            lengthY = int(lengthY)
+            if lengthY<0:
+                raise ValueError("lengthY is negative")
         except ValueError:
-            cols = 10
-            print("Error with cols")
+            lengthY = 10
+            print("Error with lengthY")
         finally:
-            print("cols : " + str(cols))
+            print("lengthY : " + str(lengthY))
         
-        self.rows = rows
-        self.cols = cols
+        self.lengthX = lengthX
+        self.lengthY = lengthY
         self.grid = []
         
