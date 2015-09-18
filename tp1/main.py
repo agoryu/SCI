@@ -1,5 +1,6 @@
 # On importe Tkinter
 from tkinter import *
+from SMA import SMA
 
 ############### recuperation arguments ####################
 tailleX = int(sys.argv[1])

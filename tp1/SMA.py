@@ -1,3 +1,5 @@
+from EmptyCell import EmptyCell
+
 class SMA
 
     def __init__(self, environnement, agent):
