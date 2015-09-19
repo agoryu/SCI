@@ -15,11 +15,11 @@ class SMA:
             environnementG.drawEnvG(self)
 
     def addAgent(self, a):
-        self.environnement[a.x][a.y] = a
+        self.environnement.setAgent(a.x, a.y, a)
         self.agents.append(a)
 
     def isFree(self, x, y):
-        return not self.environnement[x][y].isAgent()
+        return not self.environnement.getCell(x, y).isAgent()
 
     def getEnv(self):
-        return self.environnement
+        return self.environnement.getGrid()

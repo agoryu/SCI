@@ -3,6 +3,8 @@ from tkinter import *
 from SMA import SMA
 from EnvironmentG import EnvironmentG
 from EmptyCell import EmptyCell
+from Environment import Environment
+from Agent import Agent
 
 ############### recuperation arguments ####################
 tailleX = int(sys.argv[1])
@@ -12,14 +14,9 @@ ralentisseur = int(sys.argv[4])
 nbBille = int(sys.argv[5])
 torique = bool(sys.argv[6])
 
-############### initialisation des agents et envvironnement ###################
-environnement = []
-for i in range(0, tailleX-1):
-    environnement.append([])
-    for j in range(0, tailleY-1):
-        environnement[i].append([EmptyCell(i,j)])
-        
+
 fenetre = Tk()
+environnement = Environment(tailleX, tailleY)
 ############### lancement de la simulation ##################
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase)
 sma = SMA(environnement, environnementG)

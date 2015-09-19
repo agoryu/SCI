@@ -13,3 +13,7 @@ class Agent(Cell):
         @return vrai, un Agent est forcément agent
         """
         return True
+
+    #def decide(sma):
+        
+        

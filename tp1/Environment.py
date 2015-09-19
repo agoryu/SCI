@@ -4,11 +4,13 @@ from Agent import Agent
 
 class Environment:
 
-    def __init__(self, lengthX, lengthY):
+    def __init__(self, lengthX, lengthY, toric):
         """
         Initialise l'environnement.
         @param lengthX: nombre de colonnes.
         @param lengthY: nombre de lignes.
+        @param toric: booléen indiquant si l'environnement 
+        est torique ou non.
         """
         try:
             lengthX = int(lengthX)
@@ -29,16 +31,24 @@ class Environment:
             print("Error with lengthY")
         finally:
             print("lengthY : " + str(lengthY))
+
+        self.toric = bool(toric)
         
         self.lengthX = lengthX
         self.lengthY = lengthY
         self.grid = []
         
-        for x in xrange(lengthX):
+        for x in range(lengthX):
             self.grid.append([])
-            for y in xrange(lengthY):
+            for y in range(lengthY):
                 self.grid[x].append(EmptyCell(x, y))
 
+
+    def isToric(self):
+        """
+        @return: Vrai si environnement torique, Faux sinon.
+        """
+        return self.toric
 
     def getCell(self, x, y):
         """
