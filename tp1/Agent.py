@@ -14,6 +14,5 @@ class Agent(Cell):
         """
         return True
 
-    #def decide(sma):
-        
-        
+    def decide(sma):
+        i = 1+1    

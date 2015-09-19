@@ -5,6 +5,7 @@ from EnvironmentG import EnvironmentG
 from EmptyCell import EmptyCell
 from Environment import Environment
 from Agent import Agent
+from random import *
 
 ############### recuperation arguments ####################
 tailleX = int(sys.argv[1])
@@ -21,12 +22,12 @@ environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase)
 sma = SMA(environnement, environnementG)
 
 for i in range(0, nbBille):
-	x = 0
-	y = 0
-	while(not sma.isFree(x,y)):
-		x = random.randint(0, tailleX)
-		y = random.randint(0, tailleY)
-	sma.addAgent(Agent(x, y, 0, 0))
+    x = 0
+    y = 0
+    while(not sma.isFree(x,y)):
+        x=choice(range(tailleX))
+        y=choice(range(tailleY))
+    sma.addAgent(Agent(x, y, 0, 0))
 sma.run(1000)
 
 # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre

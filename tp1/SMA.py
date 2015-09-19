@@ -12,7 +12,7 @@ class SMA:
         for a in self.agents:
             a.decide()
             #voir pour executer les changement dans la fenetre
-            environnementG.drawEnvG(self)
+            self.environnementG.drawEnvG(self)
 
     def addAgent(self, a):
         self.environnement.setAgent(a.x, a.y, a)
