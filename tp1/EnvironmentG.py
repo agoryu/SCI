@@ -8,6 +8,6 @@ class EnvironmentG:
         self.canvas.pack()
 
     def drawEnvG(self, sma):
-        for l in self.sma.getEnv():
+        for l in sma.getEnv():
             for c in l:
-                environnementG.create_rectangle(c.x, c.y, c.x+tailleCase, c.y+tailleCase, fill='blue')
+                self.canvas.create_rectangle(c.x, c.y, c.x+self.tailleCase, c.y+self.tailleCase, fill='blue')
