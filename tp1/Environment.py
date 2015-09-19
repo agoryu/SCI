@@ -34,9 +34,9 @@ class Environment:
         self.lengthY = lengthY
         self.grid = []
         
-        for x in xrange(lengthX):
+        for x in range(lengthX):
             self.grid.append([])
-            for y in xrange(lengthY):
+            for y in range(lengthY):
                 self.grid[x].append(EmptyCell(x, y))
 
 
