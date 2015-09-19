@@ -2,17 +2,14 @@ from EmptyCell import EmptyCell
 
 class SMA:
 
-    def __init__(self, environnement, environnementG):
+    def __init__(self, environnement):
         self.environnement = environnement
-        self.environnementG = environnementG
         self.agents = []
         self.nbAgent = 0
 
-    def run(self, nbTours):
+    def run(self):
         for a in self.agents:
             a.decide()
-            #voir pour executer les changement dans la fenetre
-            self.environnementG.drawEnvG(self)
 
     def addAgent(self, a):
         self.environnement.setAgent(a.x, a.y, a)
@@ -23,3 +20,6 @@ class SMA:
 
     def getEnv(self):
         return self.environnement.getGrid()
+
+    def getListAgent(self):
+        return self.agents

@@ -7,6 +7,7 @@ class Agent(Cell):
         
         self.pasX = int(pasX)
         self.pasY = int(pasY)
+        self.idA = 0
 
     def isAgent(self):
         """
@@ -16,3 +17,15 @@ class Agent(Cell):
 
     def decide(sma):
         i = 1+1    
+
+    def getId(self):
+        return self.idA
+
+    def setId(self, idA):
+        self.idA = idA
+
+    def getPasX(self):
+        return self.pasX
+
+    def getPasY(self):
+        return self.pasY
