@@ -16,6 +16,7 @@ class Agent(Cell):
         return True
 
     def decide(self, sma):
+        
         env = sma.getEnv()
 
         nextX = int(self.x + self.pasX)
@@ -44,7 +45,9 @@ class Agent(Cell):
             self.pasY *= -1
             # /!\ peux provoquer boucle infini, si bille entre deux autres
             # on pourrait empêcher cela avec un nouveau param: self.decide(sma, rec+1)
-            self.decide(sma)
+            #self.decide(sma)
+
+            # solution alternative: si rebond, on reverse les pas et on fera le pas au prochain tour
                 
     def getId(self):
         return self.idA
