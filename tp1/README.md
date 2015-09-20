@@ -19,7 +19,7 @@ L'installation du packet **python3-tk** est nécessaire
 - x : taille de l'environnement en x
 - y : taille de l'environnement en y
 - cellSize : hauteur et largeur de la bille carré
-- sleep : temps d'arêt entre chaque tour en ms
+- sleep : temps d'arrêt entre chaque tour en ms
 - nbBall : nombre de billes
 - isToric : environnement torique ou non
 
