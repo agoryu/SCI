@@ -97,7 +97,7 @@ class Environment:
         """
         return self.grid
 
-    def getLenghtX(self):
+    def getLengthX(self):
         return self.lengthX
 
     def getLengthY(self):

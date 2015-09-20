@@ -22,10 +22,10 @@ class Agent(Cell):
         nextY = int(self.y + self.pasY)
         
         if(env.isToric()):
-            nextX = int(nextX % env.getLenghtX())
-            nextY = int(nextY % env.getLenghtY())
+            nextX = int(nextX % env.getLengthX())
+            nextY = int(nextY % env.getLengthY())
         else:
-            if(nextX<0 or nextX>=env.getLenghtX()):
+            if(nextX<0 or nextX>=env.getLengthX()):
                 self.pasX *= -1
             if(nextY<0 or nextY>=env.getLengthY()):
                 self.pasY *= -1

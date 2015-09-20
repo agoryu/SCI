@@ -19,7 +19,7 @@ class SMA:
         return not self.environnement.getCell(x, y).isAgent()
 
     def getEnv(self):
-        return self.environnement.getGrid()
+        return self.environnement
 
     def getListAgent(self):
         return self.agents
