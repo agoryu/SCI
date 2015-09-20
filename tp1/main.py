@@ -20,13 +20,23 @@ fenetre = Tk()
 environnement = Environment(tailleX, tailleY, torique)
 ############### lancement de la simulation ##################
 sma = SMA(environnement)
+
 for i in range(0, nbBille):
     x = 0
     y = 0
+    pasX = 0
+    pasY = 0
     while(not sma.isFree(x,y)):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
-    sma.addAgent(Agent(x, y, -1, 1))
+    pasX = choice([-1,0,1])
+    # on ne veux pas de bille immobille alors:
+    if(pasX == 0):
+        pasY = choice([-1,1])
+    else:
+        pasY = choice([-1,0,1])
+    sma.addAgent(Agent(x, y, pasX, pasY))
+    
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
 # On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre

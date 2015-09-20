@@ -19,7 +19,8 @@ class EnvironmentG:
         for c in self.sma.getListAgent():
             posX = c.x*self.tailleCase
             posY = c.y*self.tailleCase
-            idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill='blue')
+            print(str(c.color))
+            idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color)
             c.setId(idA)
 
     def drawEnvG(self):

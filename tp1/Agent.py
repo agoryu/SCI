@@ -1,4 +1,5 @@
 from Cell import Cell
+from random import *
 
 class Agent(Cell):
 
@@ -8,6 +9,7 @@ class Agent(Cell):
         self.pasX = int(pasX)
         self.pasY = int(pasY)
         self.idA = 0
+        self.color = choice(['blue', 'red', 'green', 'magenta'])
 
     def isAgent(self):
         """
@@ -16,11 +18,11 @@ class Agent(Cell):
         return True
 
     def decide(self, sma):
-	#proposition : si la continuation ou le rebond ne marche pas
-	#cherche une position libre en iterant sur les tableaux        
-	#tabx = [1,1,0,-1,-1,-1,0,1]
+        #proposition : si la continuation ou le rebond ne marche pas
+        #cherche une position libre en iterant sur les tableaux        
+        #tabx = [1,1,0,-1,-1,-1,0,1]
         #taby = [0,1,1,1,0,-1,-1,-1]
-	"""
+        '''
         env = sma.getEnv()
         nextX = int(self.x + self.pasX)
         nextY = int(self.y + self.pasY)
@@ -40,9 +42,11 @@ class Agent(Cell):
             self.y = nextY
         #print(repr(self.x))
         #print(repr(self.y))
-	"""
-	disp = str("id: " + repr(self.idA)+ ", pas x:" + repr(self.pasX) + " y:" + repr(self.pasY))
-        fichier.write(disp)
+        '''
+        disp = "id: " + repr(self.idA)
+        disp+= ", pas x:" + repr(self.pasX) + " y:"+repr(self.pasY)
+        disp = str(disp)
+        
         print(disp)
         
         env = sma.getEnv()
