@@ -16,8 +16,36 @@ class Agent(Cell):
         return True
 
     def decide(sma):
-        i = 1+1    
+        env = sma.getEnv()
 
+        nextX = int(self.x + self.pasX)
+        nextY = int(self.y + self.pasY)
+        
+        if(env.isToric()):
+            nextX = int(nextX % env.getLenghtX())
+            nextY = int(nextY % env.getLenghtY())
+        else:
+            if(nextX<0 || nextX>=env.getLenghtX()):
+                self.pasX *= -1
+            if(nextY<0 || nextY>=env.getLengthY()):
+                self.pasY *= -1
+            nextX = int(self.x + self.pasX)
+            nextY = int(self.y + self.pasY)
+                    
+        if(env.isFree(nextX, nextY)):
+            # déplacement de la bille sur sa trajectoire
+            env.setAgent(nextX, nextY, self)
+            env.setEmptyCell(self.x,self.y)
+            self.x = nextX
+            self.y = nextY
+        else:
+            # rebond car autre bille sur la trajectoire
+            self.pasX *= -1
+            self.pasY *= -1
+            # /!\ peux provoquer boucle infini, si bille entre deux autres
+            # on pourrait empêcher cela avec un nouveau param: self.decide(sma, rec+1)
+            self.decide(sma)
+                
     def getId(self):
         return self.idA
 

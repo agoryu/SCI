@@ -50,6 +50,16 @@ class Environment:
         """
         return self.toric
 
+    
+    def isFree(self, x, y):
+        """
+        @return: Vrai si la case en x et y est libre, sinon Faux
+        """
+        x = int(x)
+        y = int(y)
+        return not self.grid[x][y].isAgent
+    
+
     def getCell(self, x, y):
         """
         @param x: position en x
@@ -86,3 +96,9 @@ class Environment:
         @return: la grille de l'environnement
         """
         return self.grid
+
+    def getLenghtX():
+        return self.lengthX
+
+    def getLengthY:
+        return self.lengthY
