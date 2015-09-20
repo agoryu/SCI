@@ -5,10 +5,12 @@ class EnvironmentG:
 
     def __init__(self, fenetre, tailleX, tailleY, tailleCase, sma, nbTours):
         self.sma = sma
-        self.canvas = Canvas(fenetre, width=tailleX, height=tailleY, bg='white')
+        self.canvas = Canvas(fenetre, width=tailleX*tailleCase, height=tailleY*tailleCase, bg='white')
         self.tailleCase = tailleCase
         self.canvas.pack()
         controler = Controler(sma, self, nbTours)
+
+        #bouton de demarage contenant la methode de lancement de la simu
         boutonStart = Button(fenetre, text="start", command=controler.run)
         boutonStart.pack()
         self.initEnvG()
@@ -24,3 +26,4 @@ class EnvironmentG:
         for a in self.sma.getListAgent():
             idA = a.getId()
             self.canvas.move(idA, a.getPasX(), a.getPasY())
+        self.canvas.update_idletasks()

@@ -16,8 +16,13 @@ class Agent(Cell):
         return True
 
     def decide(self, sma):
+	#proposition : si la continuation ou le rebond ne marche pas
+	#cherche une position libre en iterant sur les tableaux        
+	#tabx = [1,1,0,-1,-1,-1,0,1]
+        #taby = [0,1,1,1,0,-1,-1,-1]
 
         disp = str("id: " + repr(self.idA)+ ", pas x:" + repr(self.pasX) + " y:" + repr(self.pasY))
+        fichier.write(disp)
         print(disp)
         
         env = sma.getEnv()
@@ -51,7 +56,7 @@ class Agent(Cell):
             #self.decide(sma)
 
             # solution alternative: si rebond, on reverse les pas et on fera le pas au prochain tour
-                
+                    
     def getId(self):
         return self.idA
 
