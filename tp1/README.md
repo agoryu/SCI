@@ -14,15 +14,15 @@ L'installation du packet **python3-tk** est nécessaire
 
 ## Utilisation
 
-    $ python3.4 main.py x y cellSize speed nbBall isToric
+    $ python3.4 main.py x y cellSize sleep nbBall isToric
 
 - x : taille de l'environnement en x
 - y : taille de l'environnement en y
 - cellSize : hauteur et largeur de la bille carré
-- speed : ralentisseur
+- sleep : temps d'arêt entre chaque tour en ms
 - nbBall : nombre de billes
 - isToric : environnement torique ou non
 
 ### Exemple
 
-    $ python3.4 main.py 500 500 4 1000 10000 true
+    $ python3.4 main.py 500 500 4 100 10000 true

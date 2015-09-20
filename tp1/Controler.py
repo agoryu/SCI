@@ -12,4 +12,4 @@ class Controler:
             self.sma.run()
             self.envG.drawEnvG()
             print("num tour : "+repr(i))
-            time.sleep(self.ralentisseur)
+            time.sleep(self.ralentisseur/1000)
