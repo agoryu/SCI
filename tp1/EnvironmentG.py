@@ -11,14 +11,14 @@ class EnvironmentG:
         controler = Controler(sma, self, nbTours)
         boutonStart = Button(fenetre, text="start", command=controler.run)
         boutonStart.pack()
+        self.initEnvG()
 
     def initEnvG(self):
-        for l in self.sma.getEnv():
-            for c in l:
-                posX = c.x*tailleCase
-                posY = c.y*tailleCase
-                idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill='blue')
-                c.setId(idA)
+        for c in self.sma.getListAgent():
+            posX = c.x*self.tailleCase
+            posY = c.y*self.tailleCase
+            idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill='blue')
+            c.setId(idA)
 
     def drawEnvG(self):
         for a in self.sma.getListAgent():

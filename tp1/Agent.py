@@ -15,7 +15,7 @@ class Agent(Cell):
         """
         return True
 
-    def decide(sma):
+    def decide(self, sma):
         env = sma.getEnv()
 
         nextX = int(self.x + self.pasX)
@@ -25,9 +25,9 @@ class Agent(Cell):
             nextX = int(nextX % env.getLenghtX())
             nextY = int(nextY % env.getLenghtY())
         else:
-            if(nextX<0 || nextX>=env.getLenghtX()):
+            if(nextX<0 or nextX>=env.getLenghtX()):
                 self.pasX *= -1
-            if(nextY<0 || nextY>=env.getLengthY()):
+            if(nextY<0 or nextY>=env.getLengthY()):
                 self.pasY *= -1
             nextX = int(self.x + self.pasX)
             nextY = int(self.y + self.pasY)

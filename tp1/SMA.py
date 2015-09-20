@@ -9,7 +9,7 @@ class SMA:
 
     def run(self):
         for a in self.agents:
-            a.decide()
+            a.decide(self)
 
     def addAgent(self, a):
         self.environnement.setAgent(a.x, a.y, a)
