@@ -3,12 +3,12 @@ from Controler import Controler
 
 class EnvironmentG:
 
-    def __init__(self, fenetre, tailleX, tailleY, tailleCase, sma, nbTours):
+    def __init__(self, fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur):
         self.sma = sma
         self.canvas = Canvas(fenetre, width=tailleX*tailleCase, height=tailleY*tailleCase, bg='white')
         self.tailleCase = tailleCase
         self.canvas.pack()
-        controler = Controler(sma, self, nbTours)
+        controler = Controler(sma, self, nbTours, ralentisseur)
 
         #bouton de demarage contenant la methode de lancement de la simu
         boutonStart = Button(fenetre, text="start", command=controler.run)

@@ -27,7 +27,7 @@ for i in range(0, nbBille):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
     sma.addAgent(Agent(x, y, -1, 1))
-environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours)
+environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
-# On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
+# On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre
 fenetre.mainloop()

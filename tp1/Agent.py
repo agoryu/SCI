@@ -20,8 +20,28 @@ class Agent(Cell):
 	#cherche une position libre en iterant sur les tableaux        
 	#tabx = [1,1,0,-1,-1,-1,0,1]
         #taby = [0,1,1,1,0,-1,-1,-1]
+	"""
+        env = sma.getEnv()
+        nextX = int(self.x + self.pasX)
+        nextY = int(self.y + self.pasY)
+    
+        if(nextX<0 or nextX>=env.getLengthX()):
+            self.pasX *= -1
+        if(nextY<0 or nextY>=env.getLengthY()):
+            self.pasY *= -1
 
-        disp = str("id: " + repr(self.idA)+ ", pas x:" + repr(self.pasX) + " y:" + repr(self.pasY))
+        nextX = int(self.x + self.pasX)
+        nextY = int(self.y + self.pasY)
+
+        if(env.isFree(nextX, nextY)):
+            env.setAgent(nextX, nextY, self)
+            env.setEmptyCell(self.x,self.y)
+            self.x = nextX
+            self.y = nextY
+        #print(repr(self.x))
+        #print(repr(self.y))
+	"""
+	disp = str("id: " + repr(self.idA)+ ", pas x:" + repr(self.pasX) + " y:" + repr(self.pasY))
         fichier.write(disp)
         print(disp)
         
