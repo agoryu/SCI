@@ -16,6 +16,9 @@ class Agent(Cell):
         return True
 
     def decide(self, sma):
+
+        disp = str("id: " + repr(self.idA)+ ", pas x:" + repr(self.pasX) + " y:" + repr(self.pasY))
+        print(disp)
         
         env = sma.getEnv()
 

@@ -26,7 +26,7 @@ for i in range(0, nbBille):
     while(not sma.isFree(x,y)):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
-    sma.addAgent(Agent(x, y, 0, 0))
+    sma.addAgent(Agent(x, y, -1, 1))
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours)
 
 # On démarre la boucle Tkinter qui s'interompt quand on ferme la fenêtre
