@@ -25,4 +25,4 @@ L'installation du packet **python3-tk** est nécessaire
 
 ### Exemple
 
-    $ python3.4 main.py 500 500 2 1000 10000 true
+    $ python3.4 main.py 500 500 4 1000 10000 true

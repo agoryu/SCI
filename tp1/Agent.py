@@ -47,7 +47,7 @@ class Agent(Cell):
         disp+= ", pas x:" + repr(self.pasX) + " y:"+repr(self.pasY)
         disp = str(disp)
         
-        print(disp)
+        #print(disp)
         
         env = sma.getEnv()
 

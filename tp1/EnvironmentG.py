@@ -16,14 +16,15 @@ class EnvironmentG:
         self.initEnvG()
 
     def initEnvG(self):
+        self.canvas.delete("all")
         for c in self.sma.getListAgent():
             posX = c.x*self.tailleCase
             posY = c.y*self.tailleCase
-            print(str(c.color))
-            idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color)
+            idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color, outline=c.color)
             c.setId(idA)
 
     def drawEnvG(self):
+        print("squalala")
         for a in self.sma.getListAgent():
             idA = a.getId()
             self.canvas.move(idA, a.getPasX(), a.getPasY())
