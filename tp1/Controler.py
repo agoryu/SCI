@@ -1,4 +1,5 @@
 import time
+
 class Controler:
 
     def __init__(self, sma, envG, nbTours, ralentisseur):

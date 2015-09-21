@@ -9,7 +9,7 @@ effectuée pour chaque bille, pour déterminer leurs directions.
 
 ## Dépendance
 
-L'installation du packet **python3-tk** est nécessaire
+L'installation du packet **python3-tk** est nécessaire.
 
 
 ## Utilisation
@@ -18,11 +18,14 @@ L'installation du packet **python3-tk** est nécessaire
 
 - x : taille de l'environnement en x
 - y : taille de l'environnement en y
-- cellSize : hauteur et largeur de la bille carré
+- cellSize : hauteur et largeur de la bille carrée
 - sleep : temps d'arrêt entre chaque tour en ms
 - nbBall : nombre de billes
 - isToric : environnement torique ou non (True/False)
 
 ### Exemple
 
-    $ python3.4 main.py 100 100 8 100 50 False
+    $ python3.4 main.py 100 100 8 70 50 False
+
+Le bouton *start* lance la simulation pour 1000 tours. Après 1000
+tours on peut continuer avec le bouton *start*.
