@@ -11,5 +11,4 @@ class Controler:
         for i in range(self.nbTours):
             self.sma.run()
             self.envG.drawEnvG()
-            print("num tour : "+repr(i))
             time.sleep(self.ralentisseur/1000)

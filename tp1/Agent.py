@@ -4,6 +4,13 @@ from random import *
 class Agent(Cell):
 
     def __init__(self, x, y, pasX, pasY):
+        """
+        Construit un agent simple, pour une bille.
+        @param x: position en x
+        @param y: position en y
+        @param pasX: le déplacement en x
+        @param pasY: le déplacement en y
+        """
         Cell.__init__(self,x,y)
         
         self.pasX = int(pasX)
@@ -11,62 +18,38 @@ class Agent(Cell):
         self.idA = 0
         self.color = choice(['blue', 'red', 'green', 'magenta'])
 
+        
     def isAgent(self):
         """
         @return vrai, un Agent est forcément agent
         """
         return True
 
-    def decide(self, sma):
-        #proposition : si la continuation ou le rebond ne marche pas
-        #cherche une position libre en iterant sur les tableaux        
-        #tabx = [1,1,0,-1,-1,-1,0,1]
-        #taby = [0,1,1,1,0,-1,-1,-1]
-        '''
-        env = sma.getEnv()
-        nextX = int(self.x + self.pasX)
-        nextY = int(self.y + self.pasY)
     
-        if(nextX<0 or nextX>=env.getLengthX()):
-            self.pasX *= -1
-        if(nextY<0 or nextY>=env.getLengthY()):
-            self.pasY *= -1
-
-        nextX = int(self.x + self.pasX)
-        nextY = int(self.y + self.pasY)
-
-        if(env.isFree(nextX, nextY)):
-            env.setAgent(nextX, nextY, self)
-            env.setEmptyCell(self.x,self.y)
-            self.x = nextX
-            self.y = nextY
-        #print(repr(self.x))
-        #print(repr(self.y))
-        '''
-        disp = "id: " + repr(self.idA)
-        disp+= ", pas x:" + repr(self.pasX) + " y:"+repr(self.pasY)
-        disp = str(disp)
-        
-        #print(disp)
-        
+    def decide(self, sma):
+        """
+        Décide du déplacement de la bille en fonction de 
+        l'environnement. 
+        @param sma: le modèle qui gère l'environnement et les agents
+        """
         env = sma.getEnv()
 
-        nextX = int(self.x + self.pasX)
-        nextY = int(self.y + self.pasY)
-        
+        nextX = self.x + self.pasX
+        nextY = self.y + self.pasY
+
         if(env.isToric()):
-            nextX = int(nextX % env.getLengthX())
-            nextY = int(nextY % env.getLengthY())
+            nextX = nextX % env.getLengthX()
+            nextY = nextY % env.getLengthY()
         else:
             if(nextX<0 or nextX>=env.getLengthX()):
                 self.pasX *= -1
             if(nextY<0 or nextY>=env.getLengthY()):
                 self.pasY *= -1
-            nextX = int(self.x + self.pasX)
-            nextY = int(self.y + self.pasY)
-                    
+            nextX = self.x + self.pasX
+            nextY = self.y + self.pasY
+            
         if(env.isFree(nextX, nextY)):
-            # déplacement de la bille sur sa trajectoire
+            # déplacement de la bille sur sa trajectoire  
             env.setAgent(nextX, nextY, self)
             env.setEmptyCell(self.x,self.y)
             self.x = nextX
@@ -75,11 +58,7 @@ class Agent(Cell):
             # rebond car autre bille sur la trajectoire
             self.pasX *= -1
             self.pasY *= -1
-            # /!\ peux provoquer boucle infini, si bille entre deux autres
-            # on pourrait empêcher cela avec un nouveau param: self.decide(sma, rec+1)
-            #self.decide(sma)
-
-            # solution alternative: si rebond, on reverse les pas et on fera le pas au prochain tour
+            
                     
     def getId(self):
         return self.idA

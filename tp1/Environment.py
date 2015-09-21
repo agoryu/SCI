@@ -57,7 +57,7 @@ class Environment:
         """
         x = int(x)
         y = int(y)
-        return not self.grid[x][y].isAgent
+        return not self.grid[x][y].isAgent()
     
 
     def getCell(self, x, y):

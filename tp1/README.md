@@ -21,8 +21,8 @@ L'installation du packet **python3-tk** est nécessaire
 - cellSize : hauteur et largeur de la bille carré
 - sleep : temps d'arrêt entre chaque tour en ms
 - nbBall : nombre de billes
-- isToric : environnement torique ou non
+- isToric : environnement torique ou non (True/False)
 
 ### Exemple
 
-    $ python3.4 main.py 500 500 4 100 10000 true
+    $ python3.4 main.py 100 100 8 100 50 False

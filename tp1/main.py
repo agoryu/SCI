@@ -13,8 +13,10 @@ tailleY = int(sys.argv[2])
 tailleCase = int(sys.argv[3])
 ralentisseur = int(sys.argv[4])
 nbBille = int(sys.argv[5])
-torique = bool(sys.argv[6])
+torique = ("True" == str(sys.argv[6]))
 nbTours = 1000
+
+
 
 fenetre = Tk()
 environnement = Environment(tailleX, tailleY, torique)
@@ -22,8 +24,8 @@ environnement = Environment(tailleX, tailleY, torique)
 sma = SMA(environnement)
 
 for i in range(0, nbBille):
-    x = 0
-    y = 0
+    x = choice(range(tailleX))
+    y = choice(range(tailleY))
     pasX = 0
     pasY = 0
     while(not sma.isFree(x,y)):
