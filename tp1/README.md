@@ -23,9 +23,14 @@ L'installation du packet **python3-tk** est nécessaire.
 - nbBall : nombre de billes
 - isToric : environnement torique ou non (True/False)
 
-### Exemple
-
+Exemple:
     $ python3.4 main.py 100 100 8 70 50 False
 
 Le bouton *start* lance la simulation pour 1000 tours. Après 1000
 tours on peut continuer avec le bouton *start*.
+
+
+## Détails
+
+Lorsqu'une bille en percute une autre, seule la bille courante
+rebondit. L'autre continue son chemin si elle peut. (méthode decide)
