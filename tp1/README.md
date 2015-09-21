@@ -1,6 +1,12 @@
 TP1: Agents billes
 ==================
 
+## Auteurs
+
+- Elliot VANEGUE
+- Gaëtan DEFLANDRE
+
+
 ## Bref
 
 Plateau contenant des agents billes. Une boucle de décision est
