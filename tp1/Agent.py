@@ -65,9 +65,6 @@ class Agent(Cell):
     def getPasY(self):
         return self.pasY
 
-    def isShark(self):
-        pass
-
     def checkCase(self, env):
         tabX = [1,1,0,-1,-1,-1,0,1]
         tabY = [0,1,1,1,0,-1,-1,-1]
@@ -78,3 +75,18 @@ class Agent(Cell):
             if(env.isFree(posX, posY)):
                 return (posX, posY)
         return (0,0)
+
+    def die(self, sma):
+        sma.removeAgent(self)
+
+    def goTo(self, sma, x, y):
+        """
+        Force cette agent à aller en x et y même si l'emplacement est non
+        vide.
+        """
+        env = sma.getEnv()
+        env.setAgent(x, y, self)
+        env.setEmptyCell(self.x, self.y)
+        self.x = x
+        self.y = y
+        

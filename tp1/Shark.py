@@ -15,21 +15,42 @@ class Shark(Agent):
         self.age = 0
         self.hunger = 0
 
+
+        
     def isShark(self):
         """
         @return Vrai, les agent requin sont des requin
         """
         return True
 
+    def isTuna(self):
+        return False
+    
     def decide(self, sma):
         if(self.hunger > 3):
-            self.die()
+            self.die(sma)
 
-        tuna = tunaAround()
-        if(tuna.isEmpty()):
-            move(sma)
+        tuna = self.tunaAround(sma)
+        if(tuna.isTuna()):
+            self.eat(sma, tuna)
         else:
-            eat(tuna)
+            if(self.age >= 10):
+                self.reproduction(sma)
+            else:
+                self.move(sma)
+            self.hunger += 1
+
+    
+    def reproduction(self, sma):
+        case = self.checkCase(sma.getEnv())
+        if(case == (0,0)):
+            return False
+        else:
+            pasX = choice([-1,0,1])
+            pasY = choice([-1,0,1])
+            sma.addAgent(Shark(case[0], case[1], pasX, pasY))
+            return True
+
             
     def move(self, sma):
         env = sma.getEnv()
@@ -55,10 +76,42 @@ class Shark(Agent):
             self.x = nextX
             self.y = nextY
 
-    def eat(self, tuna):
-        tuna.die()
+    def eat(self, sma, tuna):
+        tuna.die(sma)
+        self.goTo(sma, tuna.x, tuna.y)
         self.hunger = 0
 
+    def tunaAround(self, sma):
+        env = sma.getEnv()
+
+        nearX = -1
+        nearY = -1
         
-    def die(self, sma):
-        sma.removeAgent(self)
+        for i in range(-1,1):
+            for j in range(-1,1):
+
+                if(i==0 and j==0):
+                    # Ma position!
+                    continue
+
+                if(env.isToric):
+                    nearX = (self.x + j) % env.getLengthX()
+                    nearY = (self.y + i) % env.getLengthY()
+                else:
+                    nearX = self.x + j
+                    nearY = self.y + i
+
+                    # gestion des bords
+                    if(nextX<0 or nextX>=env.getLengthX() or
+                       nextY<0 or nextY>=env.getLengthY()):
+                        continue
+
+                cell = env.getCell(nearX, nearY)
+
+                if(cell.isTuna()):
+                    return cell
+
+        return cell
+                    
+                        
+                

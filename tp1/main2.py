@@ -37,13 +37,11 @@ for i in range(0, nbBille):
         pasY = choice([-1,1])
     else:
         pasY = choice([-1,0,1])
-    """
     if(i<nbBille/2):
         sma.addAgent(Tuna(x, y, pasX, pasY))
     else:
         sma.addAgent(Shark(x, y, pasX, pasY))
-    """
-    sma.addAgent(Tuna(x, y, pasX, pasY))
+    #sma.addAgent(Tuna(x, y, pasX, pasY))
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
 # On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre

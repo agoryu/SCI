@@ -12,6 +12,9 @@ class Tuna(Agent):
     def isShark(self):
         return False
 
+    def isTuna(self):
+        return True
+
 
     def reproduction(self, sma):
         case = self.checkCase(sma.getEnv())
