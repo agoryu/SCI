@@ -4,6 +4,7 @@ class Thon(Agent):
         Agent.__init__(x, y, pasX, pasY)
         self.PERIOD = 5
         self.age = 0
+        self.color = 'blue'
 
     def isShark(self):
         return False
