@@ -15,7 +15,6 @@ class Agent(Cell):
         
         self.pasX = int(pasX)
         self.pasY = int(pasY)
-        self.idA = 0
         self.color = choice(['blue', 'red', 'green', 'magenta'])
 
         
@@ -60,14 +59,22 @@ class Agent(Cell):
             self.pasY *= -1
             
                     
-    def getId(self):
-        return self.idA
-
-    def setId(self, idA):
-        self.idA = idA
-
     def getPasX(self):
         return self.pasX
 
     def getPasY(self):
         return self.pasY
+
+    def isShark(self):
+        pass
+
+    def checkCase(self, env):
+        tabX = [1,1,0,-1,-1,-1,0,1]
+        tabY = [0,1,1,1,0,-1,-1,-1]
+
+        for i in range(0,7):
+            posX = self.x+tabX[i]
+            posY = self.y+tabY[i]
+            if(env.isFree(posX, posY)):
+                return (posX, posY)
+        return (0,0)
