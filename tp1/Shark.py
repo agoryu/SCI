@@ -31,8 +31,29 @@ class Shark(Agent):
         else:
             eat(tuna)
             
-
     def move(self, sma):
+        env = sma.getEnv()
+
+        nextX = self.x + self.pasX
+        nextY = self.y + self.pasY
+
+        if(env.isToric()):
+            nextX = nextX % env.getLengthX()
+            nextY = nextY % env.getLengthY()
+        else:
+            if(nextX<0 or nextX>=env.getLengthX()):
+                self.pasX *= -1
+            if(nextY<0 or nextY>=env.getLengthY()):
+                self.pasY *= -1
+            nextX = self.x + self.pasX
+            nextY = self.y + self.pasY
+         
+        if(env.isFree(nextX, nextY)):
+            # déplacement de la bille sur sa trajectoire  
+            env.setAgent(nextX, nextY, self)
+            env.setEmptyCell(self.x,self.y)
+            self.x = nextX
+            self.y = nextY
 
     def eat(self, tuna):
         tuna.die()
