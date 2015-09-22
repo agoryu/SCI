@@ -1,29 +1,35 @@
-class Thon(Agent):
+from Agent import Agent
+from random import *
 
-    def __init__(self, x, y, pasX, pasY)
-        Agent.__init__(x, y, pasX, pasY)
-        self.PERIOD = 5
-        self.age = 0
+class Tuna(Agent):
+
+    def __init__(self, x, y, pasX, pasY):
+        Agent.__init__(self, x, y, pasX, pasY)
+        self.PERIOD = 20
+        self.age = 1
         self.color = 'blue'
 
     def isShark(self):
         return False
 
 
-    def decide(self, sma):
-        if(self.age%self.PERIOD == 0):
-            if(not reproduction(sma)):
-                move(sma)
-        else
-            move(sma)
-
     def reproduction(self, sma):
-        case = checkCase(sma.getEnv())
+        case = self.checkCase(sma.getEnv())
         if(case == (0,0)):
             return False
         else:
-            sma.addAgent(Thon(case(1), case(2)))
+            pasX = choice([-1,0,1])
+            pasY = choice([-1,0,1])
+            sma.addAgent(Tuna(case[0], case[1], pasX, pasY))
             return True
+
+    def decide(self, sma):
+        if(self.age%self.PERIOD == 0):
+            if(not self.reproduction(sma)):
+                self.move(sma)
+        else:
+            self.move(sma)
+        self.age += 1
         
     def move(self, sma):
         env = sma.getEnv()
@@ -49,5 +55,4 @@ class Thon(Agent):
             self.x = nextX
             self.y = nextY
 
-        self.age += 1
 

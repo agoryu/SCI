@@ -21,7 +21,6 @@ class EnvironmentG:
             posX = c.x*self.tailleCase
             posY = c.y*self.tailleCase
             idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color, outline=c.color)
-            c.setId(idA)
 
     def drawEnvG(self):
         self.canvas.delete("all")
@@ -29,6 +28,5 @@ class EnvironmentG:
             posX = c.x*self.tailleCase
             posY = c.y*self.tailleCase
             idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color, outline=c.color)
-            c.setId(idA)
         self.canvas.update_idletasks()
         

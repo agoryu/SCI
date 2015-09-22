@@ -57,6 +57,8 @@ class Environment:
         """
         x = int(x)
         y = int(y)
+        if(x<0 or x>=self.lengthX or y<0 or y>=self.lengthY):
+            return False
         return not self.grid[x][y].isAgent()
     
 
