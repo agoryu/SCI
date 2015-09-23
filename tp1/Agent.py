@@ -1,5 +1,6 @@
 from Cell import Cell
 from random import *
+import random
 
 class Agent(Cell):
 
@@ -66,14 +67,18 @@ class Agent(Cell):
         return self.pasY
 
     def checkCase(self, env):
-        tabX = [1,1,0,-1,-1,-1,0,1]
-        tabY = [0,1,1,1,0,-1,-1,-1]
+        tabX = list(range(-1, 1))
+        tabY = list(range(-1, 1))
 
-        for i in range(0,7):
-            posX = self.x+tabX[i]
-            posY = self.y+tabY[i]
-            if(env.isFree(posX, posY)):
-                return (posX, posY)
+        random.shuffle(tabX)
+        random.shuffle(tabY)
+
+        for x in tabX:
+            for y in tabY:
+                posX = self.x+x
+                posY = self.y+y
+                if(env.isFree(posX, posY)):
+                    return (posX, posY)
         return (0,0)
 
     def die(self, sma):

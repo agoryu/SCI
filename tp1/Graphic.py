@@ -1,20 +1,24 @@
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import time
 
 class Graphic:
 
-    def __init__(self, title, xlabel, ylabel):
-        plt.title(title)
-        plt.xlabel(xlabel)
-        plt.ylabel(ylabel)
+    def __init__(self):
 
         self.fig = plt.figure()
-        self.ax1 = self.fig.add_subplot(1,1,1)
-
-        self.ani = animation.FuncAnimation(self.fig, animate, interval=1000)
+        self.plotArray = []
         plt.show()
 
-    def setDataX(self, dataX):
-        self.ax1.plot(dataX)
-        #self.h.set_ydata(dataY)
+    def getFigure(self):
+        return self.fig
+
+    def setData(self, dataX, dataY, numPlot):
+        self.plotArray[numPlot].clear()
+        self.plotArray[numPlot].plot(dataX, dataY)
+
+    def addPlot(self, title, xlabel, ylabel):
+        ax = self.fig.add_subplot(1,1,1)
+        ax.set_title(title)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        self.plotArray.append(ax)

@@ -1,5 +1,5 @@
 from Agent import Agent
-from random import *
+import random
 
 class Shark(Agent):
 
@@ -88,8 +88,8 @@ class Shark(Agent):
         nearX = -1
         nearY = -1
 
-        rx = range(-1,1)
-        ry = range(-1,1)
+        rx = list(range(-1,1))
+        ry = list(range(-1,1))
 
         random.shuffle(rx)
         random.shuffle(ry)

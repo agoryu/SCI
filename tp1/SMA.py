@@ -1,4 +1,6 @@
 from EmptyCell import EmptyCell
+from Graphic import Graphic
+import matplotlib.animation as animation
 
 class SMA:
 
@@ -7,6 +9,17 @@ class SMA:
         self.agents = []
         self.nbAgent = 0
 
+        self.nbTour = 0
+        self.nbShark = 0
+        self.nbTuna = 0
+        self.dataShark = []
+        self.dataTuna = []
+        """
+        self.graphic = Graphic()
+        self.graphic.addPlot('evolution marine', 'nb poisson', 'temps')
+        self.graphic.addPlot('', '', '')
+        ani = animation.FuncAnimation(self.graphic.getFigure(), self.updateGraphic, interval=1000)
+        """
     def run(self):
         for a in self.agents:
             a.decide(self)
@@ -17,6 +30,10 @@ class SMA:
         d'agents
         @param a: l'agent à ajouter
         """
+        if(a.isShark()):
+            self.nbShark += 1
+        else:
+            self.nbTuna += 1
         self.environnement.setAgent(a.x, a.y, a)
         self.agents.append(a)
 
@@ -37,3 +54,12 @@ class SMA:
 
     def getListAgent(self):
         return self.agents
+
+    def updateData(self, nbTour):
+        self.dataShark.append(self.nbShark)
+        self.dataTuna.append(self.nbTuna)
+        self.nbTour = nbTour
+
+    def updateGraphic(self, i):
+        self.graphic.setData(range(0,self.nbTour), self.dataShark, 0)
+        self.graphic.setData(range(0,self.nbTour), self.dataTuna, 1)
