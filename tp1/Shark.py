@@ -1,4 +1,5 @@
 from Agent import Agent
+from random import *
 
 class Shark(Agent):
 
@@ -86,9 +87,15 @@ class Shark(Agent):
 
         nearX = -1
         nearY = -1
+
+        rx = range(-1,1)
+        ry = range(-1,1)
+
+        random.shuffle(rx)
+        random.shuffle(ry)
         
-        for i in range(-1,1):
-            for j in range(-1,1):
+        for i in rx:
+            for j in ry:
 
                 if(i==0 and j==0):
                     # Ma position!
