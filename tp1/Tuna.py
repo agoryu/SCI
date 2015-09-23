@@ -37,19 +37,21 @@ class Tuna(Agent):
     def move(self, sma):
         env = sma.getEnv()
 
-        nextX = self.x + self.pasX
-        nextY = self.y + self.pasY
+        nextX = self.x + choice([-1,0,1])
+        if(nextX == 0):
+            nextY = self.y + choice([-1,1])
+        else:
+            nextY = self.y + choice([-1,0,1])
 
         if(env.isToric()):
             nextX = nextX % env.getLengthX()
             nextY = nextY % env.getLengthY()
         else:
-            if(nextX<0 or nextX>=env.getLengthX()):
-                self.pasX *= -1
-            if(nextY<0 or nextY>=env.getLengthY()):
-                self.pasY *= -1
-            nextX = self.x + self.pasX
-            nextY = self.y + self.pasY
+            if(nextX<0 or nextX>=env.getLengthX() or
+                nextY<0 or nextY>=env.getLengthY()):
+                case = self.checkCase(env)
+                nextX = case[0]
+                nextY = case[1]
          
         if(env.isFree(nextX, nextY)):
             # déplacement de la bille sur sa trajectoire  
@@ -57,5 +59,12 @@ class Tuna(Agent):
             env.setEmptyCell(self.x,self.y)
             self.x = nextX
             self.y = nextY
+        else:
+            case = self.checkCase(env)
+            env.setAgent(case[0], case[1], self)
+            env.setEmptyCell(self.x,self.y)
+            self.x = case[0]
+            self.y = case[1]
+
 
 
