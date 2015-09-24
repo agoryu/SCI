@@ -7,7 +7,7 @@ class Graphic:
 
         self.fig = plt.figure()
         self.plotArray = []
-        plt.show()
+        #plt.show()
 
     def getFigure(self):
         return self.fig
@@ -22,3 +22,6 @@ class Graphic:
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         self.plotArray.append(ax)
+
+    def getGraphic(self):
+        return plt

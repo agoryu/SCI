@@ -18,7 +18,6 @@ class SMA:
         self.graphic = Graphic()
         self.graphic.addPlot('evolution marine', 'nb poisson', 'temps')
         self.graphic.addPlot('', '', '')
-        ani = animation.FuncAnimation(self.graphic.getFigure(), self.updateGraphic, interval=1000)
         """
     def run(self):
         for a in self.agents:
@@ -63,3 +62,9 @@ class SMA:
     def updateGraphic(self, i):
         self.graphic.setData(range(0,self.nbTour), self.dataShark, 0)
         self.graphic.setData(range(0,self.nbTour), self.dataTuna, 1)
+
+    def getFigure(self):
+        return self.graphic.getFigure()
+
+    def getData(self):
+        return (self.dataShark, self.dataTuna, self.nbTour)

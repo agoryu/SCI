@@ -8,6 +8,8 @@ from Agent import Agent
 from Tuna import Tuna
 from Shark import Shark
 from random import *
+from Graphic import Graphic
+import matplotlib.pyplot as plt
 
 ############### recuperation arguments ####################
 tailleX = int(sys.argv[1])
@@ -44,5 +46,20 @@ for i in range(0, nbBille):
     #sma.addAgent(Tuna(x, y, pasX, pasY))
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
+#ani = animation.FuncAnimation(sma.getFigure(), sma.updateGraphic, interval=1000)
 # On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre
 fenetre.mainloop()
+
+"""
+graphic = Graphic()
+graphic.addPlot('evolution marine', 'nb poisson', 'temps')
+graphic.addPlot('', '', '')
+data = sma.getData()
+graphic.setData(data[0], range(0, len(data[0])), 0)
+graphic.setData(data[1], range(0, len(data[1])), 1)
+graphic.getGraphic().show()
+"""
+data = sma.getData()
+plt.plot(range(0, len(data[0])), data[0], color="blue", linewidth=1.0, linestyle="-")
+plt.plot(range(0, len(data[0])), data[1], color="green", linewidth=1.0, linestyle="-")
+plt.show()
