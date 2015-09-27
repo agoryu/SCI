@@ -60,6 +60,15 @@ graphic.setData(data[1], range(0, len(data[1])), 1)
 graphic.getGraphic().show()
 """
 data = sma.getData()
-plt.plot(range(0, len(data[0])), data[0], color="blue", linewidth=1.0, linestyle="-")
-plt.plot(range(0, len(data[0])), data[1], color="green", linewidth=1.0, linestyle="-")
+size = range(0, len(data[0]))
+plt.subplot(211)
+plt.plot(size, data[0], color='blue', linewidth=1.0, linestyle='-')
+plt.plot(size, data[1], color='green', linewidth=1.0, linestyle='-')
+
+plt.subplot(212)
+lastData = []
+for i in size:
+    lastData.append(data[1][i] / data[0][i])
+plt.plot(size, lastData, color='black', linewidth=1.0, linestyle='-')
+
 plt.show()

@@ -1,5 +1,6 @@
 from Agent import Agent
 from random import *
+import random
 
 class Tuna(Agent):
 
@@ -33,16 +34,60 @@ class Tuna(Agent):
         else:
             self.move(sma)
         self.age += 1
+    
+    def sharkAround(self, env):
+
+        nearX = -1
+        nearY = -1
+
+        rx = list(range(-1,1))
+        ry = list(range(-1,1))
+
+        random.shuffle(rx)
+        random.shuffle(ry)
         
+        for i in rx:
+            for j in ry:
+
+                if(i==0 and j==0):
+                    # Ma position!
+                    continue
+
+                if(env.isToric):
+                    nearX = (self.x + j) % env.getLengthX()
+                    nearY = (self.y + i) % env.getLengthY()
+                else:
+                    nearX = self.x + j
+                    nearY = self.y + i
+
+                    # gestion des bords
+                    if(nextX<0 or nextX>=env.getLengthX() or
+                       nextY<0 or nextY>=env.getLengthY()):
+                        continue
+
+                cell = env.getCell(nearX, nearY)
+
+                if(cell.isShark()):
+                    return cell
+
+        return False
+    
     def move(self, sma):
         env = sma.getEnv()
 
-        nextX = self.x + choice([-1,0,1])
-        if(nextX == 0):
-            nextY = self.y + choice([-1,1])
+        #si il y a un requin on part
+        if(self.sharkAround(env)):
+            nextX = self.x * -1
+            nextY = self.y * -1
+        #sinon choix aleatoire
         else:
-            nextY = self.y + choice([-1,0,1])
+            nextX = self.x + choice([-1,0,1])
+            if(nextX == 0):
+                nextY = self.y + choice([-1,1])
+            else:
+                nextY = self.y + choice([-1,0,1])
 
+        #verification de la disposition du terrain
         if(env.isToric()):
             nextX = nextX % env.getLengthX()
             nextY = nextY % env.getLengthY()

@@ -28,7 +28,8 @@ class Shark(Agent):
         return False
     
     def decide(self, sma):
-        if(self.hunger > 6):
+        #MODIF temps de vie
+        if(self.hunger > 100):
             self.die(sma)
 
         tuna = self.tunaAround(sma)

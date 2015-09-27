@@ -18,7 +18,6 @@ class Agent(Cell):
         self.pasY = int(pasY)
         self.color = choice(['blue', 'red', 'green', 'magenta'])
 
-        
     def isAgent(self):
         """
         @return vrai, un Agent est forcément agent
