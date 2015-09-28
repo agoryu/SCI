@@ -59,10 +59,6 @@ class SMA:
         self.dataTuna.append(self.nbTuna)
         self.nbTour = nbTour
 
-    def updateGraphic(self, i):
-        self.graphic.setData(range(0,self.nbTour), self.dataShark, 0)
-        self.graphic.setData(range(0,self.nbTour), self.dataTuna, 1)
-
     def getFigure(self):
         return self.graphic.getFigure()
 

@@ -62,13 +62,13 @@ graphic.getGraphic().show()
 data = sma.getData()
 size = range(0, len(data[0]))
 plt.subplot(211)
-plt.plot(size, data[0], color='blue', linewidth=1.0, linestyle='-')
-plt.plot(size, data[1], color='green', linewidth=1.0, linestyle='-')
+plt.plot(size, data[0])
+plt.plot(size, data[1])
 
 plt.subplot(212)
-lastData = []
-for i in size:
-    lastData.append(data[1][i] / data[0][i])
-plt.plot(size, lastData, color='black', linewidth=1.0, linestyle='-')
+#lastData = []
+#for i in size:
+#    lastData.append(data[1][i] / data[0][i])
+plt.plot(data[0], data[1], color='black', linewidth=1.0, linestyle='-')
 
 plt.show()

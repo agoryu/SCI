@@ -1,4 +1,5 @@
 from Agent import Agent
+from random import *
 import random
 
 class Shark(Agent):
@@ -13,7 +14,7 @@ class Shark(Agent):
         """
         Agent.__init__(self,x,y,pasX,pasY)
         self.color = 'black'
-        self.age = 0
+        self.age = 1
         self.hunger = 0
 
 
@@ -29,18 +30,19 @@ class Shark(Agent):
     
     def decide(self, sma):
         #MODIF temps de vie
-        if(self.hunger > 100):
+        if(self.hunger > 7):
             self.die(sma)
 
         tuna = self.tunaAround(sma)
         if(tuna.isTuna()):
             self.eat(sma, tuna)
         else:
-            if(self.age >= 10):
+            if(self.age % 10 == 0):
                 self.reproduction(sma)
             else:
                 self.move(sma)
             self.hunger += 1
+        self.age += 1
 
     
     def reproduction(self, sma):
