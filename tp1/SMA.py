@@ -45,6 +45,14 @@ class SMA:
         self.environnement.setEmptyCell(a.x, a.y)
         self.agents.remove(a)
 
+        self.nbAgent -= 1
+        
+        if(a.isTuna()):
+            self.nbTuna -= 1
+            
+        if(a.isShark()):
+            self.nbShark -= 1
+
     def isFree(self, x, y):
         return not self.environnement.getCell(x, y).isAgent()
 

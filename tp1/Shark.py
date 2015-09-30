@@ -30,19 +30,19 @@ class Shark(Agent):
     
     def decide(self, sma):
         #MODIF temps de vie
-        if(self.hunger > 7):
+        if(self.hunger > 6):
             self.die(sma)
-
-        tuna = self.tunaAround(sma)
-        if(tuna.isTuna()):
-            self.eat(sma, tuna)
         else:
-            if(self.age % 10 == 0):
-                self.reproduction(sma)
+            tuna = self.tunaAround(sma)
+            if(tuna.isTuna()):
+                self.eat(sma, tuna)
             else:
-                self.move(sma)
-            self.hunger += 1
-        self.age += 1
+                if(self.age % 10 == 0):
+                    self.reproduction(sma)
+                else:
+                    self.move(sma)
+                self.hunger += 1
+            self.age += 1
 
     
     def reproduction(self, sma):
