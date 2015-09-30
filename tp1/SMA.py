@@ -29,9 +29,10 @@ class SMA:
         d'agents
         @param a: l'agent à ajouter
         """
+        self.nbAgent += 1
         if(a.isShark()):
             self.nbShark += 1
-        else:
+        if(a.isTuna()):
             self.nbTuna += 1
         self.environnement.setAgent(a.x, a.y, a)
         self.agents.append(a)
@@ -66,6 +67,7 @@ class SMA:
         self.dataShark.append(self.nbShark)
         self.dataTuna.append(self.nbTuna)
         self.nbTour = nbTour
+        print(len(self.agents))
 
     def getFigure(self):
         return self.graphic.getFigure()

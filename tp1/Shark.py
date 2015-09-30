@@ -13,7 +13,7 @@ class Shark(Agent):
         @param pasY: le déplacement en y
         """
         Agent.__init__(self,x,y,pasX,pasY)
-        self.color = 'black'
+        self.color = 'red'
         self.age = 1
         self.hunger = 0
 

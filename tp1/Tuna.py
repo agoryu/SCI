@@ -70,15 +70,16 @@ class Tuna(Agent):
                 if(cell.isShark()):
                     return cell
 
-        return False
+        return cell
     
     def move(self, sma):
         env = sma.getEnv()
 
         #si il y a un requin on part
-        if(self.sharkAround(env)):
-            nextX = self.x * -1
-            nextY = self.y * -1
+        shark = self.sharkAround(env)
+        if(shark.isShark()):
+            nextX = self.x - shark.getX()
+            nextY = self.y - shark.getY()
         #sinon choix aleatoire
         else:
             nextX = self.x + choice([-1,0,1])

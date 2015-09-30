@@ -87,8 +87,12 @@ class Agent(Cell):
         """
         Force cette agent à aller en x et y même si l'emplacement est non
         vide.
-        """
+        """       
         env = sma.getEnv()
+
+        if(env.getCell(x,y).isAgent()):
+            raise ValueError("Case n'est pas libre.")
+
         env.setAgent(x, y, self)
         env.setEmptyCell(self.x, self.y)
         self.x = x
