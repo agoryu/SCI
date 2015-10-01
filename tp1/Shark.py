@@ -4,7 +4,7 @@ import random
 
 class Shark(Agent):
 
-    def __init__(self, x, y, pasX, pasY):
+    def __init__(self, x, y):
         """
         Allocation d'un agent requin.
         @param x: position en x
@@ -12,10 +12,12 @@ class Shark(Agent):
         @param pasX: le déplacement en x
         @param pasY: le déplacement en y
         """
-        Agent.__init__(self,x,y,pasX,pasY)
+        Agent.__init__(self,x,y,0,0)
         self.color = 'red'
         self.age = 1
         self.hunger = 0
+        self.HUNGER_CYCLE = 5
+        self.PERIOD = 10
 
 
         
@@ -29,15 +31,15 @@ class Shark(Agent):
         return False
     
     def decide(self, sma):
-        #MODIF temps de vie
-        if(self.hunger > 6):
+        if(self.hunger > self.HUNGER_CYCLE):
             self.die(sma)
         else:
             tuna = self.tunaAround(sma)
-            if(tuna.isTuna()):
+            hunger_threshold = int((self.HUNGER_CYCLE/4) * 3)
+            if(tuna.isTuna() and self.hunger<hunger_threshold):
                 self.eat(sma, tuna)
             else:
-                if(self.age % 10 == 0):
+                if(self.age % self.PERIOD == 0):
                     self.reproduction(sma)
                 else:
                     self.move(sma)
@@ -46,32 +48,37 @@ class Shark(Agent):
 
     
     def reproduction(self, sma):
-        case = self.checkCase(sma.getEnv())
-        if(case == (0,0)):
+        pas = self.checkCase(sma.getEnv())
+        if(pas == (0,0)):
             return False
         else:
-            pasX = choice([-1,0,1])
-            pasY = choice([-1,0,1])
-            sma.addAgent(Shark(case[0], case[1], pasX, pasY))
+            caseX = self.x + pas[0]
+            caseY = self.y + pas[1]
+            sma.addAgent(Shark(caseX, caseY))
             return True
 
-            
+                         
     def move(self, sma):
         env = sma.getEnv()
 
-        nextX = self.x + self.pasX
-        nextY = self.y + self.pasY
+        # choix aleatoire
 
+        nextX = self.x + choice([-1,0,1])
+        if(nextX == 0):
+            nextY = self.y + choice([-1,1])
+        else:
+            nextY = self.y + choice([-1,0,1])
+
+        #verification de la disposition du terrain
         if(env.isToric()):
             nextX = nextX % env.getLengthX()
             nextY = nextY % env.getLengthY()
         else:
-            if(nextX<0 or nextX>=env.getLengthX()):
-                self.pasX *= -1
-            if(nextY<0 or nextY>=env.getLengthY()):
-                self.pasY *= -1
-            nextX = self.x + self.pasX
-            nextY = self.y + self.pasY
+            if(nextX<0 or nextX>=env.getLengthX() or
+                nextY<0 or nextY>=env.getLengthY()):
+                pas = self.checkCase(env)
+                nextX = self.x + pas[0]
+                nextY = self.y + pas[1]
          
         if(env.isFree(nextX, nextY)):
             # déplacement de la bille sur sa trajectoire  
@@ -79,11 +86,36 @@ class Shark(Agent):
             env.setEmptyCell(self.x,self.y)
             self.x = nextX
             self.y = nextY
+        else:
+            pas = self.checkCase(env)
+            nextX = self.x + pas[0]
+            nextY = self.y + pas[1]
+
+            #verification de la disposition du terrain
+            if(env.isToric()):
+                nextX = nextX % env.getLengthX()
+                nextY = nextY % env.getLengthY()
+            else:
+                if(nextX<0 or nextX>=env.getLengthX() or
+                   nextY<0 or nextY>=env.getLengthY()):
+                    pas = self.checkCase(env)
+                    nextX = self.x + pas[0]
+                    nextY = self.y + pas[1]
+            
+            if(sma.isFree(nextX, nextY)):
+                env.setAgent(nextX, nextY, self)
+                env.setEmptyCell(self.x,self.y)
+                self.x = nextX
+                self.y = nextY
+            
+
+
 
     def eat(self, sma, tuna):
         tuna.die(sma)
         self.goTo(sma, tuna.x, tuna.y)
         self.hunger = 0
+
 
     def tunaAround(self, sma):
         env = sma.getEnv()

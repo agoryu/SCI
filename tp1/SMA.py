@@ -29,6 +29,11 @@ class SMA:
         d'agents
         @param a: l'agent à ajouter
         """
+        cell = self.environnement.getCell(a.getX(),a.getY())
+        if(cell.isAgent()):
+            errMsg = "Les agents ne peuvent pas se chauffer"
+            raise ValueError(errMsg)
+
         self.nbAgent += 1
         if(a.isShark()):
             self.nbShark += 1
@@ -67,7 +72,6 @@ class SMA:
         self.dataShark.append(self.nbShark)
         self.dataTuna.append(self.nbTuna)
         self.nbTour = nbTour
-        print(len(self.agents))
 
     def getFigure(self):
         return self.graphic.getFigure()

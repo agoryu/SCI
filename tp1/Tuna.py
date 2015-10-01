@@ -4,8 +4,8 @@ import random
 
 class Tuna(Agent):
 
-    def __init__(self, x, y, pasX, pasY):
-        Agent.__init__(self, x, y, pasX, pasY)
+    def __init__(self, x, y):
+        Agent.__init__(self, x, y, 0, 0)
         self.PERIOD = 20
         self.age = 1
         self.color = 'blue'
@@ -22,9 +22,7 @@ class Tuna(Agent):
         if(case == (0,0)):
             return False
         else:
-            pasX = choice([-1,0,1])
-            pasY = choice([-1,0,1])
-            sma.addAgent(Tuna(case[0], case[1], pasX, pasY))
+            sma.addAgent(Tuna(case[0], case[1]))
             return True
 
     def decide(self, sma):
@@ -95,9 +93,9 @@ class Tuna(Agent):
         else:
             if(nextX<0 or nextX>=env.getLengthX() or
                 nextY<0 or nextY>=env.getLengthY()):
-                case = self.checkCase(env)
-                nextX = case[0]
-                nextY = case[1]
+                pas = self.checkCase(env)
+                nextX = self.x + pas[0]
+                nextY = self.y + pas[1]
          
         if(env.isFree(nextX, nextY)):
             # déplacement de la bille sur sa trajectoire  
@@ -106,11 +104,24 @@ class Tuna(Agent):
             self.x = nextX
             self.y = nextY
         else:
-            case = self.checkCase(env)
-            env.setAgent(case[0], case[1], self)
-            env.setEmptyCell(self.x,self.y)
-            self.x = case[0]
-            self.y = case[1]
+            pas = self.checkCase(env)
+            nextX = self.x + pas[0]
+            nextY = self.y + pas[1]
 
-
+            #verification de la disposition du terrain
+            if(env.isToric()):
+                nextX = nextX % env.getLengthX()
+                nextY = nextY % env.getLengthY()
+            else:
+                if(nextX<0 or nextX>=env.getLengthX() or
+                   nextY<0 or nextY>=env.getLengthY()):
+                    pas = self.checkCase(env)
+                    nextX = self.x + pas[0]
+                    nextY = self.y + pas[1]
+            
+            if(sma.isFree(nextX, nextY)):
+                env.setAgent(nextX, nextY, self)
+                env.setEmptyCell(self.x,self.y)
+                self.x = nextX
+                self.y = nextY
 

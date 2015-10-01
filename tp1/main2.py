@@ -28,21 +28,15 @@ sma = SMA(environnement)
 for i in range(0, nbBille):
     x = choice(range(tailleX))
     y = choice(range(tailleY))
-    pasX = 0
-    pasY = 0
     while(not sma.isFree(x,y)):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
-    pasX = choice([-1,0,1])
-    # on ne veux pas de bille immobille alors:
-    if(pasX == 0):
-        pasY = choice([-1,1])
+
+    if(i%4 == 0):
+        sma.addAgent(Shark(x,y))
     else:
-        pasY = choice([-1,0,1])
-    if(i<3*nbBille/4):
-        sma.addAgent(Tuna(x, y, pasX, pasY))
-    else:
-        sma.addAgent(Shark(x, y, pasX, pasY))
+        sma.addAgent(Tuna(x,y))
+        
     #sma.addAgent(Tuna(x, y, pasX, pasY))
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
@@ -62,8 +56,8 @@ graphic.getGraphic().show()
 data = sma.getData()
 size = range(0, len(data[0]))
 plt.subplot(211)
-plt.plot(size, data[0])
-plt.plot(size, data[1])
+plt.plot(size, data[0], color='red')
+plt.plot(size, data[1], color='blue')
 
 plt.subplot(212)
 #lastData = []
