@@ -30,7 +30,7 @@ L'installation du packet **python3-tk** est nécessaire.
 - isToric : environnement torique ou non (True/False)
 
 Exemple:
-    $ python3.4 main2.py 100 100 8 0 1000 True
+    $ python3.4 main2.py 100 100 8 0 2000 True
 
 Le bouton *start* lance la simulation pour 1000 tours. Après 1000
 tours on peut continuer avec le bouton *start*.

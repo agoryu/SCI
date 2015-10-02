@@ -99,6 +99,30 @@ class Environment:
         """
         return self.grid
 
+    def normalizeCoord(self, x, y):
+        """
+        @param x: la coordonnée en x à normaliser
+        @param y: la coordonnée en y à normaliser
+        @return: les coordonnées correct dans l'environnement 
+        qu'il soit torique ou non.
+        """
+        normX = x
+        normY = y
+        if(self.isToric()):
+            normX = x % self.getLengthX()
+            normY = y % self.getLengthY()
+        else:
+            if(x<0):
+                normX = 0
+            if(x>=self.getLengthX()):
+                normX = self.getLengthX() - 1
+            if(y<0):
+                normY = 0
+            if(y>=self.getLengthY()):
+                normY = self.getLengthY() - 1
+                
+        return (normX, normY)
+
     def getLengthX(self):
         return self.lengthX
 

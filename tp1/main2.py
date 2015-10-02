@@ -32,7 +32,7 @@ for i in range(0, nbBille):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
 
-    if(i%4 == 0):
+    if(i%10 == 0):
         sma.addAgent(Shark(x,y))
     else:
         sma.addAgent(Tuna(x,y))

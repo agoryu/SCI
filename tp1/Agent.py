@@ -66,27 +66,27 @@ class Agent(Cell):
         return self.pasY
 
     def checkCase(self, env):
-        tabX = list(range(-1, 1))
-        tabY = list(range(-1, 1))
+        tabX = list(range(-1, 2))
+        tabY = list(range(-1, 2))
 
         random.shuffle(tabX)
         random.shuffle(tabY)
 
         for x in tabX:
             for y in tabY:
-                posX = self.x+x
-                posY = self.y+y
-                if(env.isFree(posX, posY)):
-                    return (posX, posY)
-        return (0,0)
+                case = env.normalizeCoord(self.x+x, self.y+y)
+                if(env.isFree(case[0], case[1])):
+                    return (case[0], case[1])
+                
+        return (self.x, self.y)
 
     def die(self, sma):
         sma.removeAgent(self)
 
     def goTo(self, sma, x, y):
         """
-        Force cette agent à aller en x et y même si l'emplacement est non
-        vide.
+        Force cette agent à aller en x et y même si l'emplacement 
+        est non vide.
         """       
         env = sma.getEnv()
 

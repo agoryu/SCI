@@ -14,9 +14,9 @@ class Shark(Agent):
         """
         Agent.__init__(self,x,y,0,0)
         self.color = 'red'
-        self.age = 1
-        self.hunger = 0
-        self.HUNGER_CYCLE = 5
+        self.age = 0
+        self.HUNGER_CYCLE = 6
+        self.hunger = choice(range(int(self.HUNGER_CYCLE/2.0)))
         self.PERIOD = 10
 
 
@@ -35,80 +35,52 @@ class Shark(Agent):
             self.die(sma)
         else:
             tuna = self.tunaAround(sma)
-            hunger_threshold = int((self.HUNGER_CYCLE/4) * 3)
+            hunger_threshold = self.HUNGER_CYCLE / 4
             if(tuna.isTuna() and self.hunger<hunger_threshold):
                 self.eat(sma, tuna)
+                self.age += 1
             else:
-                if(self.age % self.PERIOD == 0):
+                if(self.age > self.PERIOD):
                     self.reproduction(sma)
+                    self.age = 0
                 else:
-                    self.move(sma)
+                    if(tuna.isTuna()):
+                        self.eat(sma, tuna)
+                        self.age += 1
+                    else:
+                        self.move(sma)
                 self.hunger += 1
             self.age += 1
 
     
     def reproduction(self, sma):
-        pas = self.checkCase(sma.getEnv())
-        if(pas == (0,0)):
+        case = self.checkCase(sma.getEnv())
+        if(case == (self.x, self.y)):
             return False
         else:
-            caseX = self.x + pas[0]
-            caseY = self.y + pas[1]
-            sma.addAgent(Shark(caseX, caseY))
+            sma.addAgent(Shark(case[0], case[1]))
             return True
 
                          
     def move(self, sma):
         env = sma.getEnv()
 
-        # choix aleatoire
+        # case aleation 
 
-        nextX = self.x + choice([-1,0,1])
-        if(nextX == 0):
-            nextY = self.y + choice([-1,1])
+        next = self.checkCase(env)
+        if(next == (self.x, self.y)):
+            return
+       
+        if(env.isFree(next[0], next[1])):
+            # déplacement du requin sur le next  
+            env.setAgent(next[0], next[1], self)
+            env.setEmptyCell(self.x, self.y)
+            self.x = next[0]
+            self.y = next[1]
         else:
-            nextY = self.y + choice([-1,0,1])
-
-        #verification de la disposition du terrain
-        if(env.isToric()):
-            nextX = nextX % env.getLengthX()
-            nextY = nextY % env.getLengthY()
-        else:
-            if(nextX<0 or nextX>=env.getLengthX() or
-                nextY<0 or nextY>=env.getLengthY()):
-                pas = self.checkCase(env)
-                nextX = self.x + pas[0]
-                nextY = self.y + pas[1]
-         
-        if(env.isFree(nextX, nextY)):
-            # déplacement de la bille sur sa trajectoire  
-            env.setAgent(nextX, nextY, self)
-            env.setEmptyCell(self.x,self.y)
-            self.x = nextX
-            self.y = nextY
-        else:
-            pas = self.checkCase(env)
-            nextX = self.x + pas[0]
-            nextY = self.y + pas[1]
-
-            #verification de la disposition du terrain
-            if(env.isToric()):
-                nextX = nextX % env.getLengthX()
-                nextY = nextY % env.getLengthY()
-            else:
-                if(nextX<0 or nextX>=env.getLengthX() or
-                   nextY<0 or nextY>=env.getLengthY()):
-                    pas = self.checkCase(env)
-                    nextX = self.x + pas[0]
-                    nextY = self.y + pas[1]
-            
-            if(sma.isFree(nextX, nextY)):
-                env.setAgent(nextX, nextY, self)
-                env.setEmptyCell(self.x,self.y)
-                self.x = nextX
-                self.y = nextY
-            
-
+            next = self.checkCase(env)
+            if(next == (self.x, self.y)):
+                return
 
 
     def eat(self, sma, tuna):
@@ -123,8 +95,8 @@ class Shark(Agent):
         nearX = -1
         nearY = -1
 
-        rx = list(range(-1,1))
-        ry = list(range(-1,1))
+        rx = list(range(-1,2))
+        ry = list(range(-1,2))
 
         random.shuffle(rx)
         random.shuffle(ry)
@@ -135,20 +107,9 @@ class Shark(Agent):
                 if(i==0 and j==0):
                     # Ma position!
                     continue
-
-                if(env.isToric):
-                    nearX = (self.x + j) % env.getLengthX()
-                    nearY = (self.y + i) % env.getLengthY()
-                else:
-                    nearX = self.x + j
-                    nearY = self.y + i
-
-                    # gestion des bords
-                    if(nextX<0 or nextX>=env.getLengthX() or
-                       nextY<0 or nextY>=env.getLengthY()):
-                        continue
-
-                cell = env.getCell(nearX, nearY)
+                
+                near = env.normalizeCoord(self.x+i, self.y+j)
+                cell = env.getCell(near[0], near[1])
 
                 if(cell.isTuna()):
                     return cell

@@ -19,7 +19,7 @@ class Tuna(Agent):
 
     def reproduction(self, sma):
         case = self.checkCase(sma.getEnv())
-        if(case == (0,0)):
+        if(case == (self.x, self.y)):
             return False
         else:
             sma.addAgent(Tuna(case[0], case[1]))
@@ -34,12 +34,15 @@ class Tuna(Agent):
         self.age += 1
     
     def sharkAround(self, env):
-
+        """
+        @return: un requin autour de cette case, une case 
+        vide si il y en a pas.
+        """
         nearX = -1
         nearY = -1
 
-        rx = list(range(-1,1))
-        ry = list(range(-1,1))
+        rx = list(range(-1,2))
+        ry = list(range(-1,2))
 
         random.shuffle(rx)
         random.shuffle(ry)
@@ -51,24 +54,14 @@ class Tuna(Agent):
                     # Ma position!
                     continue
 
-                if(env.isToric):
-                    nearX = (self.x + j) % env.getLengthX()
-                    nearY = (self.y + i) % env.getLengthY()
-                else:
-                    nearX = self.x + j
-                    nearY = self.y + i
-
-                    # gestion des bords
-                    if(nextX<0 or nextX>=env.getLengthX() or
-                       nextY<0 or nextY>=env.getLengthY()):
-                        continue
-
-                cell = env.getCell(nearX, nearY)
+                near = env.normalizeCoord(self.x+i, self.y+j)
+                cell = env.getCell(near[0], near[1])
 
                 if(cell.isShark()):
                     return cell
 
         return cell
+    
     
     def move(self, sma):
         env = sma.getEnv()
@@ -76,52 +69,22 @@ class Tuna(Agent):
         #si il y a un requin on part
         shark = self.sharkAround(env)
         if(shark.isShark()):
-            nextX = self.x - shark.getX()
-            nextY = self.y - shark.getY()
+            movX = self.x - shark.getX()
+            movY = self.y - shark.getY()
+            next = env.normalizeCoord(self.x+movX, self.y+movY)
         #sinon choix aleatoire
         else:
-            nextX = self.x + choice([-1,0,1])
-            if(nextX == 0):
-                nextY = self.y + choice([-1,1])
-            else:
-                nextY = self.y + choice([-1,0,1])
-
-        #verification de la disposition du terrain
-        if(env.isToric()):
-            nextX = nextX % env.getLengthX()
-            nextY = nextY % env.getLengthY()
+            next = self.checkCase(env)
+            if(next == (self.x, self.y)):
+                return
+       
+        if(env.isFree(next[0], next[1])):
+            # déplacement du thon sur le next  
+            env.setAgent(next[0], next[1], self)
+            env.setEmptyCell(self.x, self.y)
+            self.x = next[0]
+            self.y = next[1]
         else:
-            if(nextX<0 or nextX>=env.getLengthX() or
-                nextY<0 or nextY>=env.getLengthY()):
-                pas = self.checkCase(env)
-                nextX = self.x + pas[0]
-                nextY = self.y + pas[1]
-         
-        if(env.isFree(nextX, nextY)):
-            # déplacement de la bille sur sa trajectoire  
-            env.setAgent(nextX, nextY, self)
-            env.setEmptyCell(self.x,self.y)
-            self.x = nextX
-            self.y = nextY
-        else:
-            pas = self.checkCase(env)
-            nextX = self.x + pas[0]
-            nextY = self.y + pas[1]
-
-            #verification de la disposition du terrain
-            if(env.isToric()):
-                nextX = nextX % env.getLengthX()
-                nextY = nextY % env.getLengthY()
-            else:
-                if(nextX<0 or nextX>=env.getLengthX() or
-                   nextY<0 or nextY>=env.getLengthY()):
-                    pas = self.checkCase(env)
-                    nextX = self.x + pas[0]
-                    nextY = self.y + pas[1]
-            
-            if(sma.isFree(nextX, nextY)):
-                env.setAgent(nextX, nextY, self)
-                env.setEmptyCell(self.x,self.y)
-                self.x = nextX
-                self.y = nextY
-
+            next = self.checkCase(env)
+            if(next == (self.x, self.y)):
+                return
