@@ -85,8 +85,7 @@ class Agent(Cell):
 
     def goTo(self, sma, x, y):
         """
-        Force cette agent à aller en x et y même si l'emplacement 
-        est non vide.
+        Force cette agent à aller en x et y.
         """       
         env = sma.getEnv()
 
@@ -97,4 +96,10 @@ class Agent(Cell):
         env.setEmptyCell(self.x, self.y)
         self.x = x
         self.y = y
-        
+
+
+    def isShark(self):
+        return False
+
+    def isTuna(self):
+        return True

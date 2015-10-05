@@ -1,26 +1,29 @@
-TP1: Agents billes
-==================
+TPs de SCI
+==========
 
-## Auteurs
+### Auteurs
 
 - Elliot VANEGUE
 - Gaëtan DEFLANDRE
 
+### Dépendance
 
-## Bref
+L'installation du packet **python3-tk** est nécessaire.
+
+
+
+TP1: Simulation bille 
+--------------------
+
+### Bref
 
 Plateau contenant des agents billes. Une boucle de décision est
 effectuée pour chaque bille, pour déterminer leurs directions.
 
 
-## Dépendance
+### Utilisation
 
-L'installation du packet **python3-tk** est nécessaire.
-
-
-## Utilisation
-
-    $ python3.4 main2.py x y cellSize sleep nbBall isToric
+    $ python3.4 main.py x y cellSize sleep nbBall isToric
 
 - x : taille de l'environnement en x
 - y : taille de l'environnement en y
@@ -30,13 +33,58 @@ L'installation du packet **python3-tk** est nécessaire.
 - isToric : environnement torique ou non (True/False)
 
 Exemple:
-    $ python3.4 main2.py 100 100 8 0 2000 True
+    $ python3.4 main.py 100 100 8 50 200 True
 
 Le bouton *start* lance la simulation pour 1000 tours. Après 1000
 tours on peut continuer avec le bouton *start*.
 
 
-## Détails
+### Détails
 
 Lorsqu'une bille en percute une autre, seule la bille courante
 rebondit. L'autre continue son chemin si elle peut. (méthode decide)
+
+
+
+TP2: Simulation possion
+-----------------------
+
+### Bref
+
+Plateau contenant des agents pouvant être des requins ou des thons.
+Les agents recherchent à survivre par différentes actions. Une
+action par tour est choisit par la méthode *decide*.
+
+
+### Utilisation
+
+    $ python3.4 main2.py x y cellSize sleep nbBall isToric
+
+Les arguments sont identique que pour le TP1.
+
+Configuration fonctionnelle:
+    $ python3.4 main2.py 100 100 8 0 2000 True #Optimal
+    $ python3.4 main2.py 50 50 8 0 400 True
+
+Le bouton *start* lance la simulation pour 1000 tours. Après 1000
+tours on peut continuer avec le bouton *start*.
+Pour fermer la fenêtre de simulation, veuillez effectuer un CTRL+c
+et cliquer sur la croix de la fenêtre.
+
+### Caractéristiques
+
+#### Thon
+- reproduction: 10 tours
+
+#### Requin
+- reproduction: 10 tours
+- mort de faim: 6 tours sans manger
+
+
+### Détails
+
+Les poissons cherchent à survivre en fuyant les requins. Lorsqu'ils
+en détecte un autour d'eux, ils partent dans la direction opposée.
+
+Les requins quant à eux mangent les poissons qui se situe autours
+d'eux. Lorsqu'un requin mange un poisson il se reproduit plus vite.

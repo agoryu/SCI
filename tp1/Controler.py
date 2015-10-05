@@ -8,6 +8,7 @@ class Controler:
         self.nbTours = nbTours
         self.ralentisseur = ralentisseur
 
+        
     def run(self):
         for i in range(self.nbTours):
             self.sma.run()

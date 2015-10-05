@@ -10,9 +10,15 @@ class EnvironmentG:
         self.canvas.pack()
         controler = Controler(sma, self, nbTours, ralentisseur)
 
-        #bouton de demarage contenant la methode de lancement de la simu
+        tunaLab = Label(fenetre, text="Thon", fg="blue")
+        tunaLab.pack()
+        sharkLab = Label(fenetre, text="Requin", fg="red")
+        sharkLab.pack()
+        
+        #bouton de demarrage contenant la methode de lancement de la simu
         boutonStart = Button(fenetre, text="start", command=controler.run)
         boutonStart.pack()
+
         self.initEnvG()
 
     def initEnvG(self):
@@ -29,4 +35,3 @@ class EnvironmentG:
             posY = c.y*self.tailleCase
             idA = self.canvas.create_rectangle(posX, posY, posX+self.tailleCase, posY+self.tailleCase, fill=c.color, outline=c.color)
         self.canvas.update_idletasks()
-        
