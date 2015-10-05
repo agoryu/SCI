@@ -53,18 +53,20 @@ TP2: Simulation possion
 
 Plateau contenant des agents pouvant être des requins ou des thons.
 Les agents recherchent à survivre par différentes actions. Une
-action par tour est choisit par la méthode *decide*.
+action par tour est choisie par la méthode *decide*.
 
 
 ### Utilisation
 
     $ python3.4 main2.py x y cellSize sleep nbBall isToric
 
-Les arguments sont identique que pour le TP1.
+Les arguments sont identiques à ceux du TP1.
 
-Configuration fonctionnelle:
+Configurations fonctionnelles:
+```
     $ python3.4 main2.py 100 100 8 0 2000 True #Optimal
     $ python3.4 main2.py 50 50 8 0 400 True
+```
 
 Le bouton *start* lance la simulation pour 1000 tours. Après 1000
 tours on peut continuer avec le bouton *start*.
@@ -86,5 +88,5 @@ et cliquer sur la croix de la fenêtre.
 Les poissons cherchent à survivre en fuyant les requins. Lorsqu'ils
 en détecte un autour d'eux, ils partent dans la direction opposée.
 
-Les requins quant à eux mangent les poissons qui se situe autours
+Les requins quant à eux mangent les poissons qui se situent autours
 d'eux. Lorsqu'un requin mange un poisson il se reproduit plus vite.
