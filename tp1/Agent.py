@@ -66,6 +66,14 @@ class Agent(Cell):
         return self.pasY
 
     def checkCase(self, env):
+        """
+        Retourne les coordonnées d'une case dans le voisinage 
+        8-connexe de cette agent. 
+        L'emplacement est recherhché aléatoirement et doit être 
+        libre.
+        Si il n'y a pas d'emplacement libre 
+        @return coordonnées (int, int)
+        """
         tabX = list(range(-1, 2))
         tabY = list(range(-1, 2))
 
@@ -83,6 +91,35 @@ class Agent(Cell):
     def die(self, sma):
         sma.removeAgent(self)
 
+        
+    def move(self, sma):
+        """
+        Retourne les coordonnées d'une case dans le voisinage 
+        8-connexe de cette agent. 
+        L'emplacement doit être libre, sinon si il n'y a pas 
+        d'emplacement libre 
+        @return coordonnées (int, int)
+        """
+        env = sma.getEnv()
+
+        # case aleation 
+
+        next = self.checkCase(env)
+        if(next == (self.x, self.y)):
+            return
+       
+        if(env.isFree(next[0], next[1])):
+            # déplacement du requin sur le next  
+            env.setAgent(next[0], next[1], self)
+            env.setEmptyCell(self.x, self.y)
+            self.x = next[0]
+            self.y = next[1]
+        else:
+            next = self.checkCase(env)
+            if(next == (self.x, self.y)):
+                return
+
+            
     def goTo(self, sma, x, y):
         """
         Force cette agent à aller en x et y.
