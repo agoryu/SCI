@@ -30,9 +30,9 @@ class SMA:
         @param a: l'agent à ajouter
         """
         cell = self.environnement.getCell(a.getX(),a.getY())
-        if(cell.isAgent()):
-            errMsg = "Les agents ne peuvent pas se chauffer"
-            raise ValueError(errMsg)
+        #if(cell.isAgent()):
+        #    errMsg = "Les agents ne peuvent pas se chevaucher"
+        #    raise ValueError(errMsg)
 
         self.nbAgent += 1
         if(a.isShark()):
