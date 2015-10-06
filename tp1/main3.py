@@ -17,6 +17,7 @@ ralentisseur = int(sys.argv[4])
 nbHunter = int(sys.argv[5])
 nbHunted = int(sys.argv[6])
 nbWall = int(sys.argv[7])
+nbTours = 1000
 
 fenetre = Tk()
 environnement = Environment(tailleX, tailleY, False)
@@ -29,12 +30,16 @@ for i in range(0, nbHunter + nbHunted + nbWall):
     while(not sma.isFree(x,y)):
         x=choice(range(tailleX))
         y=choice(range(tailleY))
-    if(nbHunter > 0)
+    
+    if(nbHunter > 0):
         sma.addAgent(Hunter(x, y))
-    else if(nbHunted > 0)
+        nbHunter -= 1
+    elif(nbHunted > 0):
         sma.addAgent(Hunted(x, y))
-    else
+        nbHunted -= 1
+    else:
         sma.addAgent(Wall(x, y))
+        nbWall -= 1
                                                                                             
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
