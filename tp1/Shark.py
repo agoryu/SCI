@@ -23,14 +23,22 @@ class Shark(Agent):
         
     def isShark(self):
         """
-        @return Vrai, les agent requin sont des requin
+        @return Vrai, les agent requin sont des requin.
         """
         return True
 
     def isTuna(self):
+        """
+        @return Faux, les agent requin ne sont pas des thon.
+        """
         return False
     
     def decide(self, sma):
+        """
+        METHODE DECIDE UTILE AU TP2
+        
+        Méthode de décision du requin
+        """
         if(self.hunger > self.HUNGER_CYCLE):
             self.die(sma)
         else:
@@ -54,6 +62,12 @@ class Shark(Agent):
 
     
     def reproduction(self, sma):
+        """
+        Méthode de reproduction du requin.
+        Crée un nouveau requin dans une case libre autour du ce requin, 
+        sinon pas de création de requin.
+        @return True si nouvel agent cré, sinon False.
+        """
         case = self.checkCase(sma.getEnv())
         if(case == (self.x, self.y)):
             return False
@@ -62,34 +76,11 @@ class Shark(Agent):
             return True
 
                          
-    def move(self, sma):
-        env = sma.getEnv()
-
-        # case aleation 
-
-        next = self.checkCase(env)
-        if(next == (self.x, self.y)):
-            return
-       
-        if(env.isFree(next[0], next[1])):
-            # déplacement du requin sur le next  
-            env.setAgent(next[0], next[1], self)
-            env.setEmptyCell(self.x, self.y)
-            self.x = next[0]
-            self.y = next[1]
-        else:
-            next = self.checkCase(env)
-            if(next == (self.x, self.y)):
-                return
-
-
-    def eat(self, sma, tuna):
-        tuna.die(sma)
-        self.goTo(sma, tuna.x, tuna.y)
-        self.hunger = 0
-
-
     def tunaAround(self, sma):
+        """
+        @return agent thon autour de ce requin s'il y en a un. Sinon, retourne 
+        case vide.
+        """
         env = sma.getEnv()
 
         nearX = -1

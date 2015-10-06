@@ -4,6 +4,8 @@ import random
 
 class Agent(Cell):
 
+    # CONSTRUCTEUR
+
     def __init__(self, x, y, pasX, pasY):
         """
         Construit un agent simple, pour une bille.
@@ -18,17 +20,35 @@ class Agent(Cell):
         self.pasY = int(pasY)
         self.color = choice(['blue', 'red', 'green', 'magenta'])
 
+
+    # METHODES
+        
     def isAgent(self):
         """
         @return vrai, un Agent est forcément agent
         """
         return True
 
+    def isShark(self):
+        return False
+
+    def isTuna(self):
+        return False
+
+
+    def getPasX(self):
+        return self.pasX
+
+    def getPasY(self):
+        return self.pasY
+
+
     
     def decide(self, sma):
         """
-        Décide du déplacement de la bille en fonction de 
-        l'environnement. 
+        METHODE DECIDE UTILE AU TP1
+
+        Décide du déplacement de la bille en fonction de l'environnement. 
         @param sma: le modèle qui gère l'environnement et les agents
         """
         env = sma.getEnv()
@@ -57,21 +77,16 @@ class Agent(Cell):
             # rebond car autre bille sur la trajectoire
             self.pasX *= -1
             self.pasY *= -1
-            
-                    
-    def getPasX(self):
-        return self.pasX
 
-    def getPasY(self):
-        return self.pasY
 
     def checkCase(self, env):
         """
-        Retourne les coordonnées d'une case dans le voisinage 
-        8-connexe de cette agent. 
-        L'emplacement est recherhché aléatoirement et doit être 
-        libre.
-        Si il n'y a pas d'emplacement libre 
+        Retourne les coordonnées d'une case dans le voisinage 8-connexe 
+        de cet agent. 
+        L'emplacement est recherché aléatoirement parmi les 8 voisins 
+        et doit être libre.
+        S'il n'y a pas d'emplacement libre cette méthode retourne les 
+        coordonnées de cet agent.
         @return coordonnées (int, int)
         """
         tabX = list(range(-1, 2))
@@ -88,17 +103,11 @@ class Agent(Cell):
                 
         return (self.x, self.y)
 
-    def die(self, sma):
-        sma.removeAgent(self)
-
         
     def move(self, sma):
         """
-        Retourne les coordonnées d'une case dans le voisinage 
-        8-connexe de cette agent. 
-        L'emplacement doit être libre, sinon si il n'y a pas 
-        d'emplacement libre 
-        @return coordonnées (int, int)
+        Déplace l'agent avec une case libre autour de lui.
+        Voir méthode Agent.checkCase()
         """
         env = sma.getEnv()
 
@@ -122,7 +131,7 @@ class Agent(Cell):
             
     def goTo(self, sma, x, y):
         """
-        Force cette agent à aller en x et y.
+        Force cette agent à aller en x et y, si libre.
         """       
         env = sma.getEnv()
 
@@ -134,9 +143,11 @@ class Agent(Cell):
         self.x = x
         self.y = y
 
-
-    def isShark(self):
-        return False
-
-    def isTuna(self):
-        return True
+        
+    def die(self, sma):
+        """
+        Supprime cet agent du programme:
+        - de l'environnement
+        - de la sma (liste des agents)
+        """
+        sma.removeAgent(self)
