@@ -85,8 +85,16 @@ et cliquer sur la croix de la fenêtre.
 
 ### Détails
 
+quota : 1/10 de requin et 9/10 de poisson
+
 Les poissons cherchent à survivre en fuyant les requins. Lorsqu'ils
 en détecte un autour d'eux, ils partent dans la direction opposée.
 
 Les requins quant à eux mangent les poissons qui se situent autours
 d'eux. Lorsqu'un requin mange un poisson il se reproduit plus vite.
+
+### Résultats
+
+- égalité entre les requins et les poissons avec les premiers paramètres que nous avons fourni
+- victoire des poissons dans la majorité des cas lorsqu'on change les paramètres
+- les requins n'ont aucune chance de victoire excepté en modifiant le quota de poisson et de requin
