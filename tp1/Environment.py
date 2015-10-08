@@ -43,7 +43,6 @@ class Environment:
             for y in range(lengthY):
                 self.grid[x].append(EmptyCell(x, y))
 
-
     def isToric(self):
         """
         @return: Vrai si environnement torique, Faux sinon.
