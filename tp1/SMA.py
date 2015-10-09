@@ -14,6 +14,15 @@ class SMA:
         self.nbTuna = 0
         self.dataShark = []
         self.dataTuna = []
+
+        self.dijsktra = []
+        sizeX = environnement.getLengthX()
+        sizeY = environnement.getLengthY()
+
+        for i in range(0, sizeX):
+            self.dijsktra.append([])
+            for j in range(0, sizeY):
+                self.dijsktra[i].append(0)
         """
         self.graphic = Graphic()
         self.graphic.addPlot('evolution marine', 'nb poisson', 'temps')
@@ -22,6 +31,25 @@ class SMA:
     def run(self):
         for a in self.agents:
             a.decide(self)
+
+    def getHunting(self):
+        hunting = []
+        for a in self.agent:
+            if(a.isHunting()):
+                hunting.append(a)
+        return hunting
+
+    #def createDijsktra(self, a):
+    #    x = a.getX()
+    #    y = a.getY()
+    #    cpt = 0
+    #    cases = [(x,y)]
+
+    #    while(not cases == []) {
+    #        current = cases.popleft()
+    #        if(not (current.x, current.y) in cases):
+                
+
 
     def addAgent(self, a):
         """
