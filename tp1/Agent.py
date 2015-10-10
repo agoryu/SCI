@@ -35,6 +35,12 @@ class Agent(Cell):
     def isTuna(self):
         return False
 
+    def isHunted(self):
+        return False
+
+    def isHunter(self):
+        return False
+
 
     def getPasX(self):
         return self.pasX

@@ -8,6 +8,10 @@ class Wall(Agent):
         self.color = '#582900' 
 
         
+    def isWall(self):
+        return True
+
+    
     def decide(self, sma):
         """
         Les murs sont des agents qui ne font aucune action.

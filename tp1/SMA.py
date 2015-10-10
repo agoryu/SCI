@@ -38,8 +38,11 @@ class SMA:
         return dijsktra
 
     def getHunted(self):
+        """
+        @return la liste des agents chassés
+        """
         hunted = []
-        for a in self.agent:
+        for a in self.agents:
             if(a.isHunted()):
                 hunted.append(a)
         return hunted
