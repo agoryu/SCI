@@ -41,6 +41,8 @@ class Agent(Cell):
     def isHunter(self):
         return False
 
+    def isWall(self):
+        return False
 
     def getPasX(self):
         return self.pasX

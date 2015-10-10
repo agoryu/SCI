@@ -34,13 +34,13 @@ class SMA:
     def initDijsktra(self):
         
         dijsktra = []
-        sizeX = environnement.getLengthX()
-        sizeY = environnement.getLengthY()
+        sizeX = self.environnement.getLengthX()
+        sizeY = self.environnement.getLengthY()
 
         for i in range(0, sizeX):
-            self.dijsktra.append([])
+            dijsktra.append([])
             for j in range(0, sizeY):
-                self.dijsktra[i].append(-1)
+                dijsktra[i].append(-1)
 
         return dijsktra
 
@@ -60,9 +60,8 @@ class SMA:
         cases = [(x,y,0)]
 
         dijsktra = self.initDijsktra()
-
         while(not cases == []):
-            current = cases.popleft()
+            current = cases.pop(0)
             x = current[0]
             y = current[1]
             cpt = current[2]
@@ -76,7 +75,7 @@ class SMA:
                     cases.append((x, y+1, cpt+1))
                 if(self.isFree(x,y-1) and dijsktra[x][y-1] == -1):
                     cases.append((x, y-1, cpt+1))
-
+        return dijsktra
 
     def addAgent(self, a):
         """
@@ -115,7 +114,8 @@ class SMA:
             self.nbShark -= 1
 
     def isFree(self, x, y):
-        return not self.environnement.getCell(x, y).isAgent()
+        #return not self.environnement.getCell(x, y).isAgent()
+        return self.environnement.isFree(x, y)
 
     def getEnv(self):
         return self.environnement

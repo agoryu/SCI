@@ -13,3 +13,6 @@ class EmptyCell(Cell):
 
     def isShark(self):
         return False
+
+    def isWall(self):
+        return False

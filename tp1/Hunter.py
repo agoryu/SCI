@@ -6,29 +6,37 @@ class Hunter(Agent):
         Agent.__init__(self, x, y, 0, 0)
         self.color = 'green'
 
-    def decide(saelf, sma):
+    def decide(self, sma):
         env = sma.getEnv()
         dijsktra = sma.dijsktra
-        tab = []
+        mini = 1000
+        x = self.x
+        y = self.y
 
         if(sma.isFree(self.x+1, self.y)):
-            tab.append(dijsktra[self.x+1][self.y])
+            mini = dijsktra[self.x+1][self.y]
+            x = self.x+1
+            y = self.y
         if(sma.isFree(self.x-1, self.y)):
-            tab.append(dijsktra[self.x-1][self.y])
+            if(dijsktra[self.x-1][self.y] < mini):
+                mini = dijsktra[self.x-1][self.y]
+                x = self.x-1
+                y = self.y
         if(sma.isFree(self.x, self.y+1)):
-            tab.append(dijsktra[self.x][self.y+1])
+            if(dijsktra[self.x][self.y+1] < mini):
+                mini = dijsktra[self.x][self.y+1]
+                x = self.x
+                y = self.y+1
         if(sma.isFree(self.x, self.y-1)):
-            tab.append(dijsktra[self.x][self.y-1])
+            if(dijsktra[self.x][self.y-1] < mini):
+                mini = dijsktra[self.x][self.y-1]
+                x = self.x
+                y = self.y-1
 
-        mini = min(tab)
-
-        for i in tab:
-            if(i == min):
-                
-        return
+        env.setAgent(x, y, self)
+        env.setEmptyCell(self.x, self.y)
+        self.x = x
+        self.y = y
 
     def isHunter(self):
         return True
-
-    def isHunted(self):
-        return False
