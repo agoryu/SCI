@@ -75,7 +75,19 @@ class Shark(Agent):
             sma.addAgent(Shark(case[0], case[1]))
             return True
 
-                         
+        
+    def eat(self, sma, tuna):
+        """
+        Mange le thon en paramètre et va à ça place.  L'action "manger"
+        signifit que le thon meurt, on prend sa place avec une faim
+        nulle.
+        @param tuna: le thon à manger.
+        """
+        tuna.die(sma)
+        self.goTo(sma, tuna.x, tuna.y)
+        self.hunger = 0
+
+        
     def tunaAround(self, sma):
         """
         @return agent thon autour de ce requin s'il y en a un. Sinon, retourne 
