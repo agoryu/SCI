@@ -24,7 +24,7 @@ class SMA:
         for a in self.agents:
             a.decide(self)
 
-    def initDijsktra(self)
+    def initDijsktra(self):
         
         dijsktra = []
         sizeX = environnement.getLengthX()

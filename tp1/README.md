@@ -46,8 +46,8 @@ rebondit. L'autre continue son chemin si elle peut. (méthode decide)
 
 
 
-TP2: Simulation possion
------------------------
+TP2: Simulation poission
+------------------------
 
 ### Bref
 
@@ -98,3 +98,12 @@ d'eux. Lorsqu'un requin mange un poisson il se reproduit plus vite.
 - égalité entre les requins et les poissons avec les premiers paramètres que nous avons fourni
 - victoire des poissons dans la majorité des cas lorsqu'on change les paramètres
 - les requins n'ont aucune chance de victoire excepté en modifiant le quota de poisson et de requin
+
+
+
+TP3: Hunter/Hunted
+------------------
+
+### Utilisation
+
+x
