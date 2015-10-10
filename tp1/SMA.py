@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 
 class SMA:
 
-    def __init__(self, environnement):
+    def __init__(self, environnement, needDijsktra):
         self.environnement = environnement
         self.agents = []
         self.nbAgent = 0
@@ -15,14 +15,21 @@ class SMA:
         self.dataShark = []
         self.dataTuna = []
 
-        self.dijsktra = []
-    
-    def run(self):
-        hunted = self.getHunted()
-        self.dijsktra = self.createDijsktra(hunted[0])
+        self.needDijsktra = needDijsktra
 
+        if(needDijsktra):
+            self.dijsktra = []
+
+        
+    def run(self):
+
+        if(self.needDijsktra):
+            hunted = self.getHunted()
+            self.dijsktra = self.createDijsktra(hunted[0])
+            
         for a in self.agents:
             a.decide(self)
+
 
     def initDijsktra(self):
         

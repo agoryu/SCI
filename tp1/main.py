@@ -21,7 +21,7 @@ nbTours = 1000
 fenetre = Tk()
 environnement = Environment(tailleX, tailleY, torique)
 ############### lancement de la simulation ##################
-sma = SMA(environnement)
+sma = SMA(environnement, False)
 
 for i in range(0, nbBille):
     x = choice(range(tailleX))

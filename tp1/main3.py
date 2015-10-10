@@ -22,7 +22,7 @@ nbTours = 1000
 fenetre = Tk()
 environnement = Environment(tailleX, tailleY, False)
 ############### lancement de la simulation ##################
-sma = SMA(environnement)
+sma = SMA(environnement, True)
 
 for i in range(0, nbHunter + nbHunted + nbWall):
     x = choice(range(tailleX))
