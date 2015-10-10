@@ -16,39 +16,56 @@ class SMA:
         self.dataTuna = []
 
         self.dijsktra = []
+    
+    def run(self):
+        hunted = self.getHunted()
+        self.dijsktra = self.createDijsktra(hunted[0])
+
+        for a in self.agents:
+            a.decide(self)
+
+    def initDijsktra(self)
+        
+        dijsktra = []
         sizeX = environnement.getLengthX()
         sizeY = environnement.getLengthY()
 
         for i in range(0, sizeX):
             self.dijsktra.append([])
             for j in range(0, sizeY):
-                self.dijsktra[i].append(0)
-        """
-        self.graphic = Graphic()
-        self.graphic.addPlot('evolution marine', 'nb poisson', 'temps')
-        self.graphic.addPlot('', '', '')
-        """
-    def run(self):
-        for a in self.agents:
-            a.decide(self)
+                self.dijsktra[i].append(-1)
 
-    def getHunting(self):
-        hunting = []
+        return dijsktra
+
+    def getHunted(self):
+        hunted = []
         for a in self.agent:
-            if(a.isHunting()):
-                hunting.append(a)
-        return hunting
+            if(a.isHunted()):
+                hunted.append(a)
+        return hunted
 
-    #def createDijsktra(self, a):
-    #    x = a.getX()
-    #    y = a.getY()
-    #    cpt = 0
-    #    cases = [(x,y)]
+    def createDijsktra(self, a):
+        x = a.getX()
+        y = a.getY()
+        cases = [(x,y,0)]
 
-    #    while(not cases == []) {
-    #        current = cases.popleft()
-    #        if(not (current.x, current.y) in cases):
-                
+        dijsktra = self.initDijsktra()
+
+        while(not cases == []):
+            current = cases.popleft()
+            x = current[0]
+            y = current[1]
+            cpt = current[2]
+            dijsktra[x][y] = cpt
+            if(not (x, y, cpt) in cases):
+                if(self.isFree(x+1,y) and dijsktra[x+1][y] == -1):
+                    cases.append((x+1, y, cpt+1))
+                if(self.isFree(x-1,y) and dijsktra[x-1][y] == -1):
+                    cases.append((x-1, y, cpt+1))
+                if(self.isFree(x,y+1) and dijsktra[x][y+1] == -1):
+                    cases.append((x, y+1, cpt+1))
+                if(self.isFree(x,y-1) and dijsktra[x][y-1] == -1):
+                    cases.append((x, y-1, cpt+1))
 
 
     def addAgent(self, a):
