@@ -21,10 +21,27 @@ class Cell:
     def setY(self, y):
         self.y = int(y)
 
+
+        
     def isAgent(self):
         """
         @return vrai si la case est un agent, faux sinon.
         """
+        pass
+
+    def isShark(self):
+        pass
+
+    def isTuna(self):
+        pass
+
+    def isHunted(self):
+        pass
+
+    def isHunter(self):
+        pass
+
+    def isWall(self):
         pass
         
             

@@ -16,3 +16,9 @@ class EmptyCell(Cell):
 
     def isWall(self):
         return False
+
+    def isHunted(self):
+        return False
+
+    def isHunter(self):
+        return False

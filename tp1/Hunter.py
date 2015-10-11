@@ -1,4 +1,6 @@
 from Agent import Agent
+from random import *
+import random
 
 class Hunter(Agent):
 
@@ -6,6 +8,7 @@ class Hunter(Agent):
         Agent.__init__(self, x, y, 0, 0)
         self.color = 'green'
 
+        
     def isHunter(self):
         return True
 
@@ -50,8 +53,9 @@ class Hunter(Agent):
         
     def huntedAround(self, sma):
         """
-        @return agent hunted autour de ce requin s'il y en a un. Sinon, retourne 
-        case vide.
+        @return agent hunted autour de cet agent hunter s'il y en a
+        un. Sinon, retourne case vide.
+
         """
         env = sma.getEnv()
 
