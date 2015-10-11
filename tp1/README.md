@@ -120,4 +120,7 @@ TP3: Hunter/Hunted
 - nbWall : nombre d'agent Wall, les murs
 
 Exemple:
+```
     $ python3.4 main3.py 80 80 10 0 2 1 100
+    $ python3.4 main3.py 80 80 10 0 1 3 100
+```

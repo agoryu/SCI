@@ -6,6 +6,10 @@ class Hunter(Agent):
         Agent.__init__(self, x, y, 0, 0)
         self.color = 'green'
 
+    def isHunter(self):
+        return True
+
+
     def decide(self, sma):
         env = sma.getEnv()
         dijsktra = sma.dijsktra
@@ -38,5 +42,36 @@ class Hunter(Agent):
         self.x = x
         self.y = y
 
-    def isHunter(self):
-        return True
+        # TODO
+        # hunted = huntedArround(sma)
+        # if(hunted.isHunted()):
+        # hunted.die()
+
+        
+    def huntedAround(self, sma):
+        """
+        @return agent hunted autour de ce requin s'il y en a un. Sinon, retourne 
+        case vide.
+        """
+        env = sma.getEnv()
+
+        rx = list(range(-1,2))
+        ry = list(range(-1,2))
+
+        random.shuffle(rx)
+        random.shuffle(ry)
+        
+        for i in rx:
+            for j in ry:
+
+                if(i==0 and j==0):
+                    # Ma position!
+                    continue
+                
+                near = env.normalizeCoord(self.x+i, self.y+j)
+                cell = env.getCell(near[0], near[1])
+
+                if(cell.isHunted()):
+                    return cell
+
+        return cell

@@ -32,15 +32,13 @@ class Tuna(Agent):
         else:
             self.move(sma)
         self.age += 1
-    
+
+        
     def sharkAround(self, env):
         """
         @return: un requin autour de cette case, une case 
         vide si il y en a pas.
         """
-        nearX = -1
-        nearY = -1
-
         rx = list(range(-1,2))
         ry = list(range(-1,2))
 

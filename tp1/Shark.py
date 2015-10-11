@@ -95,9 +95,6 @@ class Shark(Agent):
         """
         env = sma.getEnv()
 
-        nearX = -1
-        nearY = -1
-
         rx = list(range(-1,2))
         ry = list(range(-1,2))
 
