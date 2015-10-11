@@ -7,14 +7,7 @@ class Hunted(Agent):
         self.color = 'yellow'
 
     def decide(self, sma):
-        env = sma.getEnv()
-        coord = self.checkCase(env)
-
-        env.setAgent(coord[0], coord[1], self)
-        env.setEmptyCell(self.x, self.y)
-
-        self.x = coord[0]
-        self.y = coord[1]
+        self.move(sma)
 
     def isHunter(self):
         return False
