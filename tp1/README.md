@@ -110,7 +110,7 @@ TP3: Hunter/Hunted
 ### Bref
 
 Arène où il y a des chasseurs et des chassés, les chassés fuient les
-chasseurs proche d'eux.
+chasseurs proches d'eux.
 
 
 ### Utilisation
@@ -134,11 +134,11 @@ Exemple:
 
 ### Détails
 
-L'arène contient trois type d'agents:
-- les chasseurs (*Hunter*) qui recherchent l'agents chassés le plus
-  proche avec l'algorithme de Dijsktra
-- les chassés (*Hunted*) qui se déplacent aléaroirements lors qu'il y
-  a pas de chausseurs autour d'eux. Si il y a un chasseur dans les 3
+L'arène contient trois types d'agents:
+- les chasseurs (*Hunter*) qui recherchent l'agent chassé le plus
+  proche avec l'algorithme de Dijsktra.
+- les chassés (*Hunted*) qui se déplacent aléatoirements lorsqu'il y
+  a pas de chausseurs autour d'eux. S'il y a un chasseur dans les 3
   cases autour, ils fuient dans la direction opposée.
 - les murs (*Wall*) qui ne font pas d'actions.
   
