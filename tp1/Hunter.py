@@ -46,9 +46,9 @@ class Hunter(Agent):
         self.y = y
 
         # TODO
-        # hunted = huntedArround(sma)
-        # if(hunted.isHunted()):
-        # hunted.die()
+        hunted = self.huntedAround(sma)
+        if(hunted.isHunted()):
+            hunted.die(sma)
 
         
     def huntedAround(self, sma):
