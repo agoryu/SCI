@@ -25,6 +25,7 @@ class SMA:
 
         if(self.needDijsktra):
             hunted = self.getHunted()
+            self.dijsktra = []
             for h in hunted:
                 self.dijsktra.append(self.createDijsktra(h))
             
