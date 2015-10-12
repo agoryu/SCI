@@ -25,7 +25,8 @@ class SMA:
 
         if(self.needDijsktra):
             hunted = self.getHunted()
-            self.dijsktra = self.createDijsktra(hunted[0])
+            for h in hunted:
+                self.dijsktra.append(self.createDijsktra(h))
             
         for a in self.agents:
             a.decide(self)
