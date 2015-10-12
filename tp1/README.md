@@ -123,4 +123,5 @@ Exemple:
 ```
     $ python3.4 main3.py 80 80 10 0 2 1 100
     $ python3.4 main3.py 80 80 10 0 1 3 100
+	$ python3.4 main3.py 60 60 12 0 10 10 300
 ```
