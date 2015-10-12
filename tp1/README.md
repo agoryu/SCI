@@ -107,6 +107,12 @@ d'eux. Lorsqu'un requin mange un poisson il se reproduit plus vite.
 TP3: Hunter/Hunted
 ------------------
 
+### Bref
+
+Arène où il y a des chasseurs et des chassés, les chassés fuient les
+chasseurs proche d'eux.
+
+
 ### Utilisation
 
     $ python3.4 main3.py x y cellSize sleep nbHunter nbHunted nbWall
@@ -125,3 +131,14 @@ Exemple:
     $ python3.4 main3.py 80 80 10 0 1 3 100
 	$ python3.4 main3.py 60 60 12 0 10 10 300
 ```
+
+### Détails
+
+L'arène contient trois type d'agents:
+- les chasseurs (*Hunter*) qui recherchent l'agents chassés le plus
+  proche avec l'algorithme de Dijsktra
+- les chassés (*Hunted*) qui se déplacent aléaroirements lors qu'il y
+  a pas de chausseurs autour d'eux. Si il y a un chasseur dans les 3
+  cases autour, ils fuient dans la direction opposée.
+- les murs (*Wall*) qui ne font pas d'actions.
+  
