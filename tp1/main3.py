@@ -43,7 +43,7 @@ for i in range(0, nbHunter + nbHunted + nbWall):
                                                                                             
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
-huntedLab = Label(fenetre, text="Hunted", fg="yellow")
+huntedLab = Label(fenetre, text="Hunted", fg="orange")
 huntedLab.pack()
 hunterLab = Label(fenetre, text="Hunter", fg="green")
 hunterLab.pack()

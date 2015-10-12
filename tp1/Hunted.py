@@ -6,7 +6,7 @@ class Hunted(Agent):
 
     def __init__(self, x, y):
         Agent.__init__(self, x, y, 0, 0)
-        self.color = 'yellow'
+        self.color = 'orange'
 
 
     def isHunted(self):
@@ -21,6 +21,17 @@ class Hunted(Agent):
         if(hunter.isHunter()):
             movX = self.x - hunter.getX()
             movY = self.y - hunter.getY()
+            
+            if(movX<0):
+                movX = -1
+            else:
+                movX = 1
+
+            if(movY<0):
+                movY = -1
+            else:
+                movY = 1
+                
             next = env.normalizeCoord(self.x+movX, self.y+movY)
             if(sma.isFree(next[0], next[1])):
                 self.goTo(sma, next[0], next[1])
@@ -38,8 +49,8 @@ class Hunted(Agent):
         """
         env = sma.getEnv()
 
-        rx = list(range(-1,2))
-        ry = list(range(-1,2))
+        rx = list(range(-3,4))
+        ry = list(range(-3,4))
 
         random.shuffle(rx)
         random.shuffle(ry)
