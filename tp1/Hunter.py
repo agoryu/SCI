@@ -47,7 +47,7 @@ class Hunter(Agent):
         self.x = x
         self.y = y
 
-        # Tuer les hunted autours
+        # Tuer le hunted autour
         hunted = self.huntedAround(sma)
         if(hunted.isHunted()):
             hunted.die(sma)
