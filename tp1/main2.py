@@ -38,7 +38,13 @@ for i in range(0, nbBille):
         sma.addAgent(Tuna(x,y))
         
     #sma.addAgent(Tuna(x, y, pasX, pasY))
+
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
+
+tunaLab = Label(fenetre, text="Thon", fg="blue")
+tunaLab.pack()
+sharkLab = Label(fenetre, text="Requin", fg="red")
+sharkLab.pack()
 
 #ani = animation.FuncAnimation(sma.getFigure(), sma.updateGraphic, interval=1000)
 # On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre

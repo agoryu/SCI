@@ -9,11 +9,6 @@ class EnvironmentG:
         self.tailleCase = tailleCase
         self.canvas.pack()
         controler = Controler(sma, self, nbTours, ralentisseur)
-
-        tunaLab = Label(fenetre, text="Thon", fg="blue")
-        tunaLab.pack()
-        sharkLab = Label(fenetre, text="Requin", fg="red")
-        sharkLab.pack()
         
         #bouton de demarrage contenant la methode de lancement de la simu
         boutonStart = Button(fenetre, text="start", command=controler.run)

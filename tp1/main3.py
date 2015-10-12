@@ -43,5 +43,12 @@ for i in range(0, nbHunter + nbHunted + nbWall):
                                                                                             
 environnementG = EnvironmentG(fenetre, tailleX, tailleY, tailleCase, sma, nbTours, ralentisseur)
 
+huntedLab = Label(fenetre, text="Hunted", fg="yellow")
+huntedLab.pack()
+hunterLab = Label(fenetre, text="Hunter", fg="green")
+hunterLab.pack()
+wallLab = Label(fenetre, text="Wall", fg="#582900")
+wallLab.pack()
+
 # On demarre la boucle Tkinter qui s interompt quand on ferme la fenetre
 fenetre.mainloop()
