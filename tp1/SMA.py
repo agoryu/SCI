@@ -69,14 +69,11 @@ class SMA:
             cpt = current[2]
             dijsktra[x][y] = cpt
             if(not (x, y, cpt) in cases):
-                if(self.isFree(x+1,y) and dijsktra[x+1][y] == -1):
-                    cases.append((x+1, y, cpt+1))
-                if(self.isFree(x-1,y) and dijsktra[x-1][y] == -1):
-                    cases.append((x-1, y, cpt+1))
-                if(self.isFree(x,y+1) and dijsktra[x][y+1] == -1):
-                    cases.append((x, y+1, cpt+1))
-                if(self.isFree(x,y-1) and dijsktra[x][y-1] == -1):
-                    cases.append((x, y-1, cpt+1))
+                for i in range(-1,2):
+                    for j in range(-1,2):
+                        if(self.isFree(x+i,y+j) and dijsktra[x+i][y+j] == -1):
+                            cases.append((x+i, y+j, cpt+1))
+
         return dijsktra
 
     def addAgent(self, a):
