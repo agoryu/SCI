@@ -30,21 +30,6 @@ class Hunter(Agent):
                             mini = d[self.x+i][self.y+j]
                             x = self.x+i
                             y = self.y+j
-            #if(sma.isFree(self.x-1, self.y)):
-            #    if(d[self.x-1][self.y] < mini):
-            #        mini = d[self.x-1][self.y]
-            #        x = self.x-1
-            #        y = self.y
-            #if(sma.isFree(self.x, self.y+1)):
-            #    if(d[self.x][self.y+1] < mini):
-            #        mini = d[self.x][self.y+1]
-            #        x = self.x
-            #        y = self.y+1
-            #if(sma.isFree(self.x, self.y-1)):
-            #    if(d[self.x][self.y-1] < mini):
-            #        mini = d[self.x][self.y-1]
-            #        x = self.x
-            #        y = self.y-1
 
         env.setAgent(x, y, self)
         env.setEmptyCell(self.x, self.y)
