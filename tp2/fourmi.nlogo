@@ -1,25 +1,38 @@
+patches-own [food]
+globals [nbfood]
+
 to setup
   ca
-  ask patches [set pcolor green]
-  ask patches with [distancexy 0 0 > 9 and distancexy 0 0 < 10 or pxcor = 0 or pxcor = -52 or pxcor = 52 or pycor = -34 or pycor = 34][set pcolor white]
-  crt 11 [set color red]
-  crt 11 [set color blue]
+  set-default-shape turtles "bug"
+  ask patches [set food 0]
+  ask patches with [random 5 > 3] [set food 10 set pcolor yellow]
+
+  crt nb
+end
+
+to go
+  ask turtles [wiggle]
+  ask turtles [decide]
 end
 
 to wiggle
-  lt random 180
-  rt random 180
+  lt random 90
+  rt random 90
   fd 1
+end
+
+to decide
+  ask patch-here [set food food - 1 set pcolor scale-color yellow food 0 10]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-458
-65
-1308
-648
-52
-34
-8.0
+769
+63
+1274
+589
+16
+16
+15.0
 1
 10
 1
@@ -29,10 +42,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--52
-52
--34
-34
+-16
+16
+-16
+16
 0
 0
 1
@@ -40,10 +53,10 @@ ticks
 30.0
 
 BUTTON
-12
-14
-99
-57
+114
+76
+187
+109
 NIL
 setup
 NIL
@@ -57,21 +70,54 @@ NIL
 1
 
 BUTTON
-17
-80
-94
-113
+117
+138
+180
+171
 NIL
-wiggle
+go
 T
 1
 T
-TURTLE
+OBSERVER
 NIL
 NIL
 NIL
 NIL
 1
+
+PLOT
+187
+354
+643
+612
+food evolution
+time
+food
+0.0
+100.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count turtles"
+
+SLIDER
+138
+215
+310
+248
+nb
+nb
+0
+100
+100
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

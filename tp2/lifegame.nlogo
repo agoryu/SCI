@@ -1,49 +1,68 @@
+patches-own [prochain-etat]
+
 to setup
   ca
-  ask patches [set pcolor green]
-  ask patches with [distancexy 0 0 > 9 and distancexy 0 0 < 10 or pxcor = 0 or pxcor = -52 or pxcor = 52 or pycor = -34 or pycor = 34][set pcolor white]
-  crt 11 [set color red]
-  crt 11 [set color blue]
+  repeat densite-vivants [ask patch random-pxcor random-pycor [set pcolor white]]
 end
 
-to wiggle
-  lt random 180
-  rt random 180
-  fd 1
+to go
+  evoluer
+  ask patches with [prochain-etat = 1] [set pcolor white]
+  ask patches with [prochain-etat = 0] [set pcolor black]
+end
+
+to evoluer
+  ask patches with [pcolor = white and count turtles-on neighbors != 2 and count turtles-on neighbors != 3] [set prochain-etat 0]
+  ask patches with [pcolor = black and count turtles-on neighbors = 3] [set prochain-etat 1]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-458
-65
-1308
-648
-52
-34
-8.0
+610
+33
+1125
+569
+50
+50
+5.0
 1
 10
 1
 1
 1
 0
-0
-0
 1
--52
-52
--34
-34
+1
+1
+-50
+50
+-50
+50
 0
 0
 1
 ticks
 30.0
 
+SLIDER
+128
+271
+300
+304
+densite-vivants
+densite-vivants
+0
+1000
+936
+1
+1
+NIL
+HORIZONTAL
+
 BUTTON
-12
-14
-99
-57
+202
+211
+275
+244
 NIL
 setup
 NIL
@@ -57,16 +76,16 @@ NIL
 1
 
 BUTTON
-17
-80
-94
-113
+360
+220
+423
+253
 NIL
-wiggle
+go
 T
 1
 T
-TURTLE
+OBSERVER
 NIL
 NIL
 NIL
