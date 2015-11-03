@@ -4,6 +4,8 @@ patches-own [food food-max]
 ; attribut des tortues : stock de nourriture
 turtles-own [stock]
 
+turtles-own [last-patch]
+
 to setup
   clear-all
   init-patches
@@ -48,11 +50,16 @@ end
 
 to init-turtle [ qty ]
   set stock qty
+  set last-patch nobody
   colorier-tortue
 end
 
 to-report faim?
-    report stock < 20
+    report stock < seuil-faim
+end
+
+to-report eating?
+  report stock < seuil-eat
 end
 
 to colorier-tortue
@@ -64,7 +71,7 @@ end
 ; procedure de selection d'action des tortues
 to decide
 ; deux etats : normal / affame
-  ifelse faim?
+  ifelse faim? or eating?
     [ chercher-nourriture ]
     [ errer ]
   set stock stock - 1
@@ -189,6 +196,7 @@ true
 PENS
 "avg-food" 1.0 0 -16777216 true "" "if (count turtles > 0) [ plot mean [stock] of turtles ]"
 "nb-of-agents" 1.0 0 -10899396 true "" "plot count turtles"
+"affame" 1.0 0 -2674135 true "" "plot count turtles with [stock < seuil-faim]"
 
 PLOT
 6
@@ -207,6 +215,36 @@ true
 "" ""
 PENS
 "total-food" 1.0 0 -16777216 true "" "plot sum [food] of patches"
+
+SLIDER
+30
+748
+202
+781
+seuil-faim
+seuil-faim
+0
+100
+21
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+259
+745
+431
+778
+seuil-eat
+seuil-eat
+0
+100
+100
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
