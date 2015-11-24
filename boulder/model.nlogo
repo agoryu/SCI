@@ -11,7 +11,7 @@ breed [diamonds diamond]
 breed [dirt]
 breed [blast]
 
-globals       [ score nb-to-collect countdown ]
+globals       [ score nb-to-collect countdown hero-heading]
 heros-own     [ moving? orders ]
 diamonds-own  [ moving? ]
 monsters-own  [ moving? right-handed? ]
@@ -290,6 +290,9 @@ to rocks::die
   ioda:die
 end
 
+to rocks::move-forward
+  default::move-forward
+end
 
 
 ; monsters-related primitives
@@ -368,7 +371,7 @@ to heros::handle-messages
     [ let m ?
       ifelse (m = "STOP")
         [ set moving? false]
-        [ set heading m set moving? true ]
+        [ set heading m set moving? true set hero-heading m ]
     ]
   set orders []
 end
@@ -393,6 +396,11 @@ end
 to heros::increase-score
   set score score + 1
   set nb-to-collect nb-to-collect - 1
+end
+
+;;TODO en cour
+to heros:: push
+  face ioda:my-target
 end
 @#$#@#$#@
 GRAPHICS-WINDOW

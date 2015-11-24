@@ -76,6 +76,7 @@ parallel interaction Collect
 end
 
 parallel interaction Push
-  condition 	     target-ahead?
-  actions	     target:move-down
+  trigger 	     target-ahead?
+  condition     target:moving?
+  actions	     push
 end
