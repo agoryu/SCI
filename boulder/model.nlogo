@@ -294,6 +294,10 @@ to rocks::move-forward
   default::move-forward
 end
 
+to rocks::flip-head
+  right 180
+end
+
 
 ; monsters-related primitives
 
@@ -398,9 +402,13 @@ to heros::increase-score
   set nb-to-collect nb-to-collect - 1
 end
 
-;;TODO en cour
-to heros:: push
+;; TODO push non fonctionnel
+to heros::push
+  ;; trouver le moyen de faire ca avant la condition ioda de PUSH
   face ioda:my-target
+  ask ioda:my-target [rocks::flip-head]
+
+  ask ioda:my-target [rocks::move-forward]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW

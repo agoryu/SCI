@@ -77,6 +77,5 @@ end
 
 parallel interaction Push
   trigger 	     target-ahead?
-  condition     target:moving?
   actions	     push
 end
