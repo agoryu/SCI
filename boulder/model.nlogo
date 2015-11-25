@@ -405,7 +405,7 @@ end
 ;; TODO push non fonctionnel
 to heros::push
   ;; trouver le moyen de faire ca avant la condition ioda de PUSH
-  face ioda:my-target
+  ask ioda:my-target face here
   ask ioda:my-target [rocks::flip-head]
 
   ask ioda:my-target [rocks::move-forward]
