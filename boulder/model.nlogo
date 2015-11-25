@@ -402,12 +402,14 @@ to heros::increase-score
   set nb-to-collect nb-to-collect - 1
 end
 
+to heros::turn-target
+  ;; trouver le moyen de faire ca avant la condition ioda de PUSH
+  ask ioda:my-target [face patch-here]
+  ask ioda:my-target [rocks::flip-head]
+end
+
 ;; TODO push non fonctionnel
 to heros::push
-  ;; trouver le moyen de faire ca avant la condition ioda de PUSH
-  ask ioda:my-target face here
-  ask ioda:my-target [rocks::flip-head]
-
   ask ioda:my-target [rocks::move-forward]
 end
 @#$#@#$#@
