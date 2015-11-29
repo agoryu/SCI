@@ -75,8 +75,13 @@ parallel interaction Collect
   actions	     target:die increase-score move-forward
 end
 
+parallel interaction SetPushDirection
+  trigger	     target-ahead?
+  actions	       turn-target
+end
+
 parallel interaction Push
   trigger 	     target-ahead?
-  condition      moving?
-  actions	       turn-target push
+  condition      target:moving?
+  actions	       push
 end

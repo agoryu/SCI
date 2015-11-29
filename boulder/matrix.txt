@@ -54,4 +54,5 @@ heros		Advance		 10
 heros		Dig		 20 	dirt		 1
 heros		Collect		 80    	diamonds	 1
 heros		Explode		 100    monsters	 0
+heros   SetPushDirection  100 rocks 1
 heros   Push   100   rocks    1

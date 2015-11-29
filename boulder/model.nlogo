@@ -298,6 +298,10 @@ to rocks::flip-head
   right 180
 end
 
+to rocks::set-heading [ value ]
+  set heading value
+end
+
 
 ; monsters-related primitives
 
@@ -404,8 +408,9 @@ end
 
 to heros::turn-target
   ;; trouver le moyen de faire ca avant la condition ioda de PUSH
-  ask ioda:my-target [face patch-here]
-  ask ioda:my-target [rocks::flip-head]
+  ;;ask ioda:my-target [face patch-here]
+  ;;ask ioda:my-target [rocks::flip-head]
+  rocks::set-heading heading
 end
 
 ;; TODO push non fonctionnel

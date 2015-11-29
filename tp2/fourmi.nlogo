@@ -3,6 +3,7 @@ globals [nbfood]
 
 to setup
   ca
+  reset-ticks
   set-default-shape turtles "bug"
   ask patches [set food 0]
   ask patches with [random 5 > 3] [set food 10 set pcolor yellow]
@@ -13,6 +14,7 @@ end
 to go
   ask turtles [wiggle]
   ask turtles [decide]
+  tick
 end
 
 to wiggle
@@ -87,22 +89,22 @@ NIL
 1
 
 PLOT
-187
-354
+86
+283
 643
 612
 food evolution
 time
 food
 0.0
-100.0
+10.0
 0.0
-100.0
+10.0
 true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot sum [food] of patches"
 
 SLIDER
 138
