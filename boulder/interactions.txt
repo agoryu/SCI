@@ -75,13 +75,12 @@ parallel interaction Collect
   actions	     target:die increase-score move-forward
 end
 
-parallel interaction SetPushDirection
-  trigger	     target-ahead?
-  actions	       turn-target
+parallel interaction Push
+  trigger 	     target-ahead? moving? target:nothing-ahead? not:target:moving?
+  actions	       move-forward target:move-forward
 end
 
-parallel interaction Push
-  trigger 	     target-ahead?
-  condition      target:moving?
-  actions	       push
+parallel interaction Roll
+  trigger can-roll?
+  actions roll
 end

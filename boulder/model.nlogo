@@ -298,10 +298,24 @@ to rocks::flip-head
   right 180
 end
 
-to rocks::set-heading [ value ]
-  set heading value
+to-report rocks::nothing-ahead?
+  face ioda:my-target
+  rocks::flip-head
+  report default::nothing-ahead? 1
 end
 
+to-report rocks::can-roll?
+  report patch-at-heading-and-distance 90 1 = nobody and patch-at-heading-and-distance 45 1 = nobody
+         or patch-at-heading-and-distance -90 1 = nobody and patch-at-heading-and-distance -45 1 = nobody
+end
+
+to-report rocks::roll
+  set heading 90
+  if patch-at-heading-and-distance 90 1 != nobody
+    [rocks::flip-head]
+  rocks::move-forward
+  rocks::move-down
+end
 
 ; monsters-related primitives
 
@@ -404,18 +418,6 @@ end
 to heros::increase-score
   set score score + 1
   set nb-to-collect nb-to-collect - 1
-end
-
-to heros::turn-target
-  ;; trouver le moyen de faire ca avant la condition ioda de PUSH
-  ;;ask ioda:my-target [face patch-here]
-  ;;ask ioda:my-target [rocks::flip-head]
-  rocks::set-heading heading
-end
-
-;; TODO push non fonctionnel
-to heros::push
-  ask ioda:my-target [rocks::move-forward]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
