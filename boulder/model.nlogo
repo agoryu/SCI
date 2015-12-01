@@ -304,17 +304,15 @@ to-report rocks::nothing-ahead?
   report default::nothing-ahead? 1
 end
 
-to-report rocks::can-roll?
-  report patch-at-heading-and-distance 90 1 = nobody and patch-at-heading-and-distance 45 1 = nobody
-         or patch-at-heading-and-distance -90 1 = nobody and patch-at-heading-and-distance -45 1 = nobody
+to rocks::turn-right-or-left
+  ifelse patch-at-heading-and-distance 90 1 = nobody
+    [ set heading 90 ]
+    [ set heading -90 ]
 end
 
-to-report rocks::roll
-  set heading 90
-  if patch-at-heading-and-distance 90 1 != nobody
-    [rocks::flip-head]
-  rocks::move-forward
-  rocks::move-down
+to-report rocks::can-roll?
+  report (patch-at-heading-and-distance 90 1 = nobody and patch-at-heading-and-distance 45 1 = nobody)
+         or (patch-at-heading-and-distance -90 1 = nobody and patch-at-heading-and-distance -45 1 = nobody)
 end
 
 ; monsters-related primitives
