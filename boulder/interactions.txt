@@ -82,5 +82,5 @@ end
 
 parallel interaction Roll
   trigger can-roll?
-  actions turn-right-or-left move-forward move-down
+  actions turn-right-or-left move-forward
 end

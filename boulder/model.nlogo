@@ -305,14 +305,15 @@ to-report rocks::nothing-ahead?
 end
 
 to rocks::turn-right-or-left
-  ifelse patch-at-heading-and-distance 90 1 = nobody
+  rocks::start-moving
+  ifelse not any? turtles-on patch-at 1 0
     [ set heading 90 ]
-    [ set heading -90 ]
+    [ set heading 270 ]
 end
 
 to-report rocks::can-roll?
-  report (patch-at-heading-and-distance 90 1 = nobody and patch-at-heading-and-distance 45 1 = nobody)
-         or (patch-at-heading-and-distance -90 1 = nobody and patch-at-heading-and-distance -45 1 = nobody)
+  report (not any? turtles-on patch-at -1 0 and not any? turtles-on patch-at -1 -1)
+  or (not any? turtles-on patch-at 1 0 and not any? turtles-on patch-at 1 -1)
 end
 
 ; monsters-related primitives
