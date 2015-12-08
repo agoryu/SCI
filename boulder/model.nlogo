@@ -11,7 +11,7 @@ breed [diamonds diamond]
 breed [dirt]
 breed [blast]
 
-globals       [ score nb-to-collect countdown hero-heading]
+globals       [ score nb-to-collect countdown ]
 heros-own     [ moving? orders ]
 diamonds-own  [ moving? ]
 monsters-own  [ moving? right-handed? ]
@@ -191,6 +191,15 @@ end
 
 to default::move-forward
   move-to patch-ahead 1
+end
+
+; blast-related primitives
+to blast::create-blast
+  hatch-blast 1 [ init-blast true ]
+end
+
+to-report blast::propagate?
+  report true
 end
 
 ; doors-related primitives
@@ -392,7 +401,7 @@ to heros::handle-messages
     [ let m ?
       ifelse (m = "STOP")
         [ set moving? false]
-        [ set heading m set moving? true set hero-heading m ]
+        [ set heading m set moving? true ]
     ]
   set orders []
 end

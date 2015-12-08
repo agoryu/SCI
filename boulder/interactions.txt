@@ -84,3 +84,8 @@ parallel interaction Roll
   trigger can-roll?
   actions turn-right-or-left move-forward
 end
+
+parallel interaction Propagate
+  condition propagate?
+  actions create-blast target:die
+end
