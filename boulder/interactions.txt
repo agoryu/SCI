@@ -86,6 +86,6 @@ parallel interaction Roll
 end
 
 parallel interaction Propagate
-  condition	     propagate?
-  actions 	     create-blast target:die die
+  condition	     nothing-ahead?
+  actions 	     create-blast
 end

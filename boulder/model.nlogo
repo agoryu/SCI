@@ -155,6 +155,7 @@ to init-blast [ dm? str ]
   set strength str
   set diamond-maker? dm?
   set nbBlast 4
+  set heading 0
 end
 
 to init-dirt
@@ -228,15 +229,18 @@ to blast::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
 end
 
+to-report blast::nothing-ahead?
+  report default::nothing-ahead? 1
+end
+
 to-report blast::propagate?
   report nbBlast > 0
 end
 
 to blast::create-blast
-   ;let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
-   ;hatch-blast 1 [ init-blast dm? strength - 1 fd 1 ]
-   ;set heading heading + 90
-   ;set nbBlast nbBlast - 1
+   hatch-blast 1 [ init-blast true strength - 1 fd 1 ]
+   set heading heading + 90
+   set nbBlast nbBlast - 1
 end
 
 ; ========================
