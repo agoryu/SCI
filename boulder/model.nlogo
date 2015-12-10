@@ -10,6 +10,8 @@ breed [rocks rock]
 breed [diamonds diamond]
 breed [dirt]
 breed [blast]
+breed [magicwalls magicwall]
+breed [amoebas amoeba]
 
 globals       [ score nb-to-collect countdown ]
 heros-own     [ moving? orders ]
@@ -73,7 +75,14 @@ to create-agent [ char ]
                             [ sprout-monsters 1 [ init-monster ]]
                             [ ifelse (char = ".")
                                 [ sprout-dirt 1 [ init-dirt ] ]
-                                [ ;;;;;; other agents ?
+                                [ ifelse (char = "W")
+                                    [ sprout-dirt 1 [ init-magicwall ] ]
+                                    [ ifelse (char = "A")
+                                       [ sprout-dirt 1 [ init-amoeba] ]
+                                       [
+                                           ;;;;;; other agents ?
+                                       ]
+                                    ]
                                 ]
                             ]
                         ]
@@ -93,6 +102,8 @@ to init-world
   set-default-shape diamonds "diamond"
   set-default-shape dirt "dirt"
   set-default-shape blast "star"
+  set-default-shape magicwalls "tile brick"
+  set-default-shape amoebas "tile log"
   read-level (word level ".txt")
   set countdown 0
   set nb-to-collect count diamonds
@@ -157,6 +168,18 @@ to init-wall [ d ]
   set color blue - 4
 end
 
+to init-magicwall
+  ioda:init-agent
+  set color orange
+  set shape "tile brick"
+end
+
+to init-amoeba
+  ioda:init-agent
+  set color pink
+  set shape "tile log"
+end
+
 
 
 ; primitives that are shared by several breeds
@@ -202,7 +225,11 @@ to-report blast::propagate?
   report true
 end
 
+
+
+; ========================
 ; doors-related primitives
+; ========================
 
 to-report doors::open?
   report open?
@@ -227,7 +254,10 @@ to doors::change-state
 end
 
 
+
+; ===========================
 ; diamonds-related primitives
+; ===========================
 
 to diamonds::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -264,7 +294,9 @@ end
 
 
 
+; ========================
 ; rocks-related primitives
+; ========================
 
 to rocks::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -321,7 +353,11 @@ to-report rocks::can-roll?
   report false
 end
 
+
+
+; ===========================
 ; monsters-related primitives
+; ===========================
 
 to monsters::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-ahead 1)
@@ -362,7 +398,9 @@ end
 
 
 
+; =======================
 ; hero-related primitives
+; =======================
 
 to send-message [ value ]
   set orders lput value orders
@@ -427,8 +465,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+822
+491
 -1
 -1
 30.0
@@ -442,8 +480,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+10
+-14
 0
 1
 1
@@ -614,8 +652,8 @@ CHOOSER
 108
 level
 level
-"level0" "level1" "level2"
-1
+"level0" "level1" "level2" "level3"
+3
 
 MONITOR
 287
