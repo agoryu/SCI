@@ -313,16 +313,12 @@ to-report rocks::nothing-ahead?
   report default::nothing-ahead? 1
 end
 
-to rocks::turn-right-or-left
-  rocks::start-moving
-  ifelse not any? turtles-on patch-at 1 0
-    [ set heading 90 ]
-    [ set heading 270 ]
-end
-
 to-report rocks::can-roll?
-  report (not any? turtles-on patch-at -1 0 and not any? turtles-on patch-at -1 -1)
-  or (not any? turtles-on patch-at 1 0 and not any? turtles-on patch-at 1 -1)
+  if (not any? turtles-on patch-at -1 0 and not any? turtles-on patch-at -1 -1)
+  [set heading 270 report true]
+  if (not any? turtles-on patch-at 1 0 and not any? turtles-on patch-at 1 -1)
+  [set heading 90 report true]
+  report false
 end
 
 ; monsters-related primitives

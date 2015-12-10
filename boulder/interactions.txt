@@ -82,7 +82,7 @@ end
 
 parallel interaction Roll
   trigger can-roll?
-  actions turn-right-or-left move-forward
+  actions move-forward
 end
 
 parallel interaction Propagate
