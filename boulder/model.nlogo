@@ -216,9 +216,29 @@ to default::move-forward
   move-to patch-ahead 1
 end
 
-; blast-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;;; blast-related primitives
+;to-report blast::countdown-finished?
+;  report strength = 0
+;end
+
+;to blast::count-down
+;  if (strength > 0) [ set strength strength - 1 ]
+;end
+
+to-report blast::activated?
+  report strength > 0
+end
+
+to blast::die
+  ioda:die
+end
+
 to blast::create-blast
-  hatch-blast 1 [ init-blast true ]
+   ioda:add-neighbors-in-radius 3
+end
+
+to blast::filter-neighbors
+  ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
 end
 
 to-report blast::propagate?
@@ -390,7 +410,11 @@ to monsters::create-blast
   hatch-blast 1 [ init-blast dm? ]
 end
 
+
+
+: =======================
 ; dirt-related primitives
+; =======================
 
 to dirt::die
   ioda:die
@@ -652,8 +676,13 @@ CHOOSER
 108
 level
 level
+<<<<<<< HEAD
 "level0" "level1" "level2" "level3"
 3
+=======
+"level0" "level1" "level2"
+2
+>>>>>>> 536a83ec7bdd3575b52a7e81b11d2eb236aca596
 
 MONITOR
 287
