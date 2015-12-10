@@ -1,0 +1,16 @@
+[11 15]
+XXXXXXXXXXX
+X H       X
+XXX     XXX
+X        AX
+X...R.R...X
+X.........X
+X         X
+X         X
+X..WWWWW..X
+X..     ..X
+X..     ..X
+X..     ..X
+X.........X
+X.........X
+XXXXXXXXXXX
