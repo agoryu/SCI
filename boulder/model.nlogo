@@ -149,10 +149,10 @@ to init-diamond
   set moving? false
 end
 
-to init-blast [ dm? ]
+to init-blast [ dm? str ]
   ioda:init-agent
   set color orange
-  set strength 3
+  set strength str
   set diamond-maker? dm?
 end
 
@@ -216,36 +216,18 @@ to default::move-forward
   move-to patch-ahead 1
 end
 
-;;;;;;;;;;;;;;;;;;;;;;;;; blast-related primitives
-;to-report blast::countdown-finished?
-;  report strength = 0
-;end
-
-;to blast::count-down
-;  if (strength > 0) [ set strength strength - 1 ]
-;end
-
-to-report blast::activated?
-  report strength > 0
-end
-
+; ========================
+; blast-related primitives
+; ========================
 to blast::die
   ioda:die
 end
 
 to blast::create-blast
-   ioda:add-neighbors-in-radius 3
+   ;let x strength - 1
+   ;hatch-blast 1 [ init-blast x ]
+   ;set heading (heading + 90)
 end
-
-to blast::filter-neighbors
-  ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
-end
-
-to-report blast::propagate?
-  report true
-end
-
-
 
 ; ========================
 ; doors-related primitives
@@ -305,7 +287,7 @@ end
 
 to diamonds::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
 to diamonds::die
@@ -344,7 +326,7 @@ end
 
 to rocks::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
 to rocks::die
@@ -407,12 +389,12 @@ end
 
 to monsters::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = heros) [ true ] [ right-handed? ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
 
 
-: =======================
+; =======================
 ; dirt-related primitives
 ; =======================
 
@@ -478,7 +460,7 @@ to heros::move-forward
 end
 
 to heros::create-blast
-  hatch-blast 1 [ init-blast true ]
+  hatch-blast 1 [ init-blast true 3 ]
 end
 
 to heros::increase-score
@@ -676,13 +658,8 @@ CHOOSER
 108
 level
 level
-<<<<<<< HEAD
 "level0" "level1" "level2" "level3"
 3
-=======
-"level0" "level1" "level2"
-2
->>>>>>> 536a83ec7bdd3575b52a7e81b11d2eb236aca596
 
 MONITOR
 287
