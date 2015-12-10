@@ -20,7 +20,7 @@ monsters-own  [ moving? right-handed? ]
 rocks-own     [ moving? ]
 walls-own     [ destructible? ]
 doors-own     [ open? ]
-blast-own     [ strength diamond-maker? ]
+blast-own     [ strength diamond-maker? nbBlast ]
 
 to setup
   clear-all
@@ -154,6 +154,7 @@ to init-blast [ dm? str ]
   set color orange
   set strength str
   set diamond-maker? dm?
+  set nbBlast 4
 end
 
 to init-dirt
@@ -223,10 +224,19 @@ to blast::die
   ioda:die
 end
 
+to blast::filter-neighbors
+  ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
+end
+
+to-report blast::propagate?
+  report nbBlast > 0
+end
+
 to blast::create-blast
-   ;let x strength - 1
-   ;hatch-blast 1 [ init-blast x ]
-   ;set heading (heading + 90)
+   ;let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
+   ;hatch-blast 1 [ init-blast dm? strength - 1 fd 1 ]
+   ;set heading heading + 90
+   ;set nbBlast nbBlast - 1
 end
 
 ; ========================
