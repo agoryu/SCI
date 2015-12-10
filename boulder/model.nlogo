@@ -471,8 +471,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-822
-491
+1242
+791
 -1
 -1
 30.0
@@ -486,8 +486,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-10
--14
+24
+-24
 0
 1
 1
@@ -659,7 +659,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-3
+2
 
 MONITOR
 287
