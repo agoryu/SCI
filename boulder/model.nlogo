@@ -193,16 +193,36 @@ to default::move-forward
   move-to patch-ahead 1
 end
 
-; blast-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;;; blast-related primitives
+;to-report blast::countdown-finished?
+;  report strength = 0
+;end
+
+;to blast::count-down
+;  if (strength > 0) [ set strength strength - 1 ]
+;end
+
+to-report blast::activated?
+  report strength > 0
+end
+
+to blast::die
+  ioda:die
+end
+
 to blast::create-blast
-  hatch-blast 1 [ init-blast true ]
+   ioda:add-neighbors-in-radius 3
+end
+
+to blast::filter-neighbors
+  ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
 end
 
 to-report blast::propagate?
   report true
 end
 
-; doors-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;; doors-related primitives
 
 to-report doors::open?
   report open?
@@ -227,7 +247,7 @@ to doors::change-state
 end
 
 
-; diamonds-related primitives
+;;;;;;;;;;;;;;;;;;;;;;; diamonds-related primitives
 
 to diamonds::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -264,7 +284,7 @@ end
 
 
 
-; rocks-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;;;;; rocks-related primitives
 
 to rocks::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -321,7 +341,7 @@ to-report rocks::can-roll?
   report false
 end
 
-; monsters-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; monsters-related primitives
 
 to monsters::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-ahead 1)
@@ -354,7 +374,7 @@ to monsters::create-blast
   hatch-blast 1 [ init-blast dm? ]
 end
 
-; dirt-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;; dirt-related primitives
 
 to dirt::die
   ioda:die
@@ -362,7 +382,7 @@ end
 
 
 
-; hero-related primitives
+;;;;;;;;;;;;;;;;;;;;;;;; hero-related primitives
 
 to send-message [ value ]
   set orders lput value orders
@@ -615,7 +635,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2"
-1
+2
 
 MONITOR
 287
