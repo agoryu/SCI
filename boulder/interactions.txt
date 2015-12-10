@@ -81,7 +81,7 @@ parallel interaction Push
 end
 
 parallel interaction Roll
-  trigger can-roll?
+  trigger can-roll? not:nothing-below?
   actions move-forward
 end
 

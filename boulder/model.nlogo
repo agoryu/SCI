@@ -21,6 +21,8 @@ rocks-own     [ moving? ]
 walls-own     [ destructible? ]
 doors-own     [ open? ]
 blast-own     [ strength diamond-maker? nbBlast ]
+magicwalls-own     [ destructible? ]
+
 
 to setup
   clear-all
@@ -76,9 +78,9 @@ to create-agent [ char ]
                             [ ifelse (char = ".")
                                 [ sprout-dirt 1 [ init-dirt ] ]
                                 [ ifelse (char = "W")
-                                    [ sprout-dirt 1 [ init-magicwall ] ]
+                                    [ sprout-magicwalls 1 [ init-magicwall ] ]
                                     [ ifelse (char = "A")
-                                       [ sprout-dirt 1 [ init-amoeba] ]
+                                       [ sprout-amoebas 1 [ init-amoeba] ]
                                        [
                                            ;;;;;; other agents ?
                                        ]
@@ -172,6 +174,8 @@ end
 
 to init-magicwall
   ioda:init-agent
+  ; TODO: on ne peut pas marcher dessus, mais les rochers passent au travers
+  ;set destructible? false
   set color orange
   set shape "tile brick"
 end
@@ -485,8 +489,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+822
+491
 -1
 -1
 30.0
@@ -500,8 +504,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+10
+-14
 0
 1
 1
@@ -673,7 +677,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-2
+3
 
 MONITOR
 287
