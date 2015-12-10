@@ -20,6 +20,7 @@ blast  Propagate 0 rocks 1
 blast  Propagate 0 monsters 1
 blast  Propagate 0 heros 1
 blast  Propagate 0 diamonds 1
+blast Propagate 0
 
 doors		Open		 0 	UPDATE
 
