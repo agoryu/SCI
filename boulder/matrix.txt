@@ -16,6 +16,7 @@
 ; of the line introduces a comment line. Empty lines are ignored.
 ;
 
+blast	Propagate	 0 	UPDATE
 
 doors		Open		 0 	UPDATE
 

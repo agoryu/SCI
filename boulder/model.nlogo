@@ -10,15 +10,19 @@ breed [rocks rock]
 breed [diamonds diamond]
 breed [dirt]
 breed [blast]
+breed [magicwalls magicwall]
+breed [amoebas amoeba]
 
-globals       [ score nb-to-collect countdown hero-heading]
+globals       [ score nb-to-collect countdown ]
 heros-own     [ moving? orders ]
 diamonds-own  [ moving? ]
 monsters-own  [ moving? right-handed? ]
 rocks-own     [ moving? ]
 walls-own     [ destructible? ]
 doors-own     [ open? ]
-blast-own     [ strength diamond-maker? ]
+blast-own     [ strength diamond-maker? nbBlast ]
+magicwalls-own     [ destructible? ]
+
 
 to setup
   clear-all
@@ -73,7 +77,14 @@ to create-agent [ char ]
                             [ sprout-monsters 1 [ init-monster ]]
                             [ ifelse (char = ".")
                                 [ sprout-dirt 1 [ init-dirt ] ]
-                                [ ;;;;;; other agents ?
+                                [ ifelse (char = "W")
+                                    [ sprout-magicwalls 1 [ init-magicwall ] ]
+                                    [ ifelse (char = "A")
+                                       [ sprout-amoebas 1 [ init-amoeba] ]
+                                       [
+                                           ;;;;;; other agents ?
+                                       ]
+                                    ]
                                 ]
                             ]
                         ]
@@ -93,6 +104,8 @@ to init-world
   set-default-shape diamonds "diamond"
   set-default-shape dirt "dirt"
   set-default-shape blast "star"
+  set-default-shape magicwalls "tile brick"
+  set-default-shape amoebas "tile log"
   read-level (word level ".txt")
   set countdown 0
   set nb-to-collect count diamonds
@@ -138,11 +151,13 @@ to init-diamond
   set moving? false
 end
 
-to init-blast [ dm? ]
+to init-blast [ dm? str ]
   ioda:init-agent
   set color orange
-  set strength 3
+  set strength str
   set diamond-maker? dm?
+  set nbBlast 4
+  set heading 0
 end
 
 to init-dirt
@@ -155,6 +170,20 @@ to init-wall [ d ]
   set destructible? d
   set heading 0
   set color blue - 4
+end
+
+to init-magicwall
+  ioda:init-agent
+  ; TODO: on ne peut pas marcher dessus, mais les rochers passent au travers
+  ;set destructible? false
+  set color orange
+  set shape "tile brick"
+end
+
+to init-amoeba
+  ioda:init-agent
+  set color pink
+  set shape "tile log"
 end
 
 
@@ -193,10 +222,34 @@ to default::move-forward
   move-to patch-ahead 1
 end
 
+; ========================
 ; blast-related primitives
+; ========================
+to blast::die
+  ioda:die
+end
 
+to blast::filter-neighbors
+  ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
+end
 
+to-report blast::nothing-ahead?
+  report default::nothing-ahead? 1
+end
+
+to-report blast::propagate?
+  report nbBlast > 0
+end
+
+to blast::create-blast
+   hatch-blast 1 [ init-blast true strength - 1 fd 1 ]
+   set heading heading + 90
+   set nbBlast nbBlast - 1
+end
+
+; ========================
 ; doors-related primitives
+; ========================
 
 to-report doors::open?
   report open?
@@ -221,7 +274,10 @@ to doors::change-state
 end
 
 
+
+; ===========================
 ; diamonds-related primitives
+; ===========================
 
 to diamonds::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -249,7 +305,7 @@ end
 
 to diamonds::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
 to diamonds::die
@@ -258,7 +314,9 @@ end
 
 
 
+; ========================
 ; rocks-related primitives
+; ========================
 
 to rocks::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-at 0 -1)
@@ -286,7 +344,7 @@ end
 
 to rocks::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = monsters) [ [right-handed?] of ioda:my-target ] [ true ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
 to rocks::die
@@ -307,19 +365,19 @@ to-report rocks::nothing-ahead?
   report default::nothing-ahead? 1
 end
 
-to rocks::turn-right-or-left
-  rocks::start-moving
-  ifelse not any? turtles-on patch-at 1 0
-    [ set heading 90 ]
-    [ set heading 270 ]
-end
-
 to-report rocks::can-roll?
-  report (not any? turtles-on patch-at -1 0 and not any? turtles-on patch-at -1 -1)
-  or (not any? turtles-on patch-at 1 0 and not any? turtles-on patch-at 1 -1)
+  if (not any? turtles-on patch-at -1 0 and not any? turtles-on patch-at -1 -1)
+  [set heading 270 report true]
+  if (not any? turtles-on patch-at 1 0 and not any? turtles-on patch-at 1 -1)
+  [set heading 90 report true]
+  report false
 end
 
+
+
+; ===========================
 ; monsters-related primitives
+; ===========================
 
 to monsters::filter-neighbors
   ioda:filter-neighbors-on-patches (patch-set patch-here patch-ahead 1)
@@ -349,10 +407,14 @@ end
 
 to monsters::create-blast
   let dm? ifelse-value ([breed] of ioda:my-target = heros) [ true ] [ right-handed? ]
-  hatch-blast 1 [ init-blast dm? ]
+  hatch-blast 1 [ init-blast dm? 3 ]
 end
 
+
+
+; =======================
 ; dirt-related primitives
+; =======================
 
 to dirt::die
   ioda:die
@@ -360,7 +422,9 @@ end
 
 
 
+; =======================
 ; hero-related primitives
+; =======================
 
 to send-message [ value ]
   set orders lput value orders
@@ -395,7 +459,7 @@ to heros::handle-messages
     [ let m ?
       ifelse (m = "STOP")
         [ set moving? false]
-        [ set heading m set moving? true set hero-heading m ]
+        [ set heading m set moving? true ]
     ]
   set orders []
 end
@@ -414,7 +478,7 @@ to heros::move-forward
 end
 
 to heros::create-blast
-  hatch-blast 1 [ init-blast true ]
+  hatch-blast 1 [ init-blast true 3 ]
 end
 
 to heros::increase-score
@@ -425,8 +489,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+822
+491
 -1
 -1
 30.0
@@ -440,8 +504,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+10
+-14
 0
 1
 1
@@ -612,8 +676,8 @@ CHOOSER
 108
 level
 level
-"level0" "level1" "level2"
-1
+"level0" "level1" "level2" "level3"
+3
 
 MONITOR
 287
