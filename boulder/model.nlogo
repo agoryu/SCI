@@ -193,6 +193,9 @@ to default::move-forward
   move-to patch-ahead 1
 end
 
+; blast-related primitives
+
+
 ; doors-related primitives
 
 to-report doors::open?
