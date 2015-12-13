@@ -89,3 +89,8 @@ parallel interaction Propagate
   condition	     propagate?
   actions 	     create-blast target:die
 end
+
+parallel interaction Explosion
+  condition	     explode?
+  actions 	     create-blast die
+end

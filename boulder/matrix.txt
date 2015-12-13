@@ -18,6 +18,7 @@
 
 blast	Propagate	 0 	UPDATE
 
+dynamite Explosion 0 UPDATE
 
 doors		Open		 0 	UPDATE
 

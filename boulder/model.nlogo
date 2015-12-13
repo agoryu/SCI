@@ -12,8 +12,9 @@ breed [dirt]
 breed [blast]
 breed [magicwalls magicwall]
 breed [amoebas amoeba]
+breed [dynamite]
 
-globals       [ score nb-to-collect countdown ]
+globals       [ score nb-to-collect countdown time ]
 heros-own     [ moving? orders destructible? ]
 diamonds-own  [ moving? destructible? ]
 monsters-own  [ moving? right-handed? destructible? ]
@@ -22,7 +23,8 @@ walls-own     [ destructible? ]
 doors-own     [ open? destructible? ]
 blast-own     [ strength diamond-maker? nbBlast destructible? ]
 magicwalls-own     [ destructible? ]
-;dirt-own [ destructible? ]
+dirt-own [ destructible? ]
+dynamite-own [ destructible? ]
 
 
 to setup
@@ -33,6 +35,7 @@ to setup
   ioda:setup
   ioda:set-metric "Moore"
   reset-ticks
+  set time 0
 end
 
 to go
@@ -168,7 +171,7 @@ end
 to init-dirt
   ioda:init-agent
   set color brown + 3
-  ;set destructible? true
+  set destructible? true
 end
 
 to init-wall [ d ]
@@ -190,10 +193,15 @@ to init-amoeba
   ioda:init-agent
   set color pink
   set shape "tile log"
-  ;set destructible? true
+  set destructible? true
 end
 
-
+to init-dynamite
+  ioda:init-agent
+  set color red
+  set shape "face sad"
+  set destructible? true
+end
 
 ; primitives that are shared by several breeds
 
@@ -233,6 +241,8 @@ end
 ; blast-related primitives
 ; ========================
 to blast::die
+  ;if diamond-maker?
+  ;[ hatch-diamonds 1 [init-diamond] ]
   ioda:die
 end
 
@@ -259,7 +269,7 @@ to blast::create-blast
           [ if destructible? [ioda:die]
           ]
         ]
-      sprout-blast 1 [ init-blast true new-strength ]
+      sprout-blast 1 [ init-blast false new-strength ]
       ]
      ]
 end
@@ -437,7 +447,25 @@ to dirt::die
   ioda:die
 end
 
+; =======================
+; dynamite-related primitives
+; =======================
 
+to-report dynamite::explode?
+  report time < 1
+end
+
+to dynamite::create-blast
+  hatch-blast 1 [ init-blast true 3 ]
+end
+
+to dynamite::filter-neighbors
+  ioda:filter-neighbors-in-radius halo-of-hero
+end
+
+to dynamite::die
+  ioda:die
+end
 
 ; =======================
 ; hero-related primitives
@@ -445,6 +473,12 @@ end
 
 to send-message [ value ]
   set orders lput value orders
+  set time time - 1
+end
+
+to heros::put-dynamite
+  if default::nothing-ahead? 1
+  [ set time 5 hatch-dynamite 1 [init-dynamite fd 1] ]
 end
 
 to heros::filter-neighbors
@@ -717,6 +751,23 @@ step-by-step?
 0
 1
 -1000
+
+BUTTON
+284
+417
+381
+450
+dynamite
+ask heros [ heros::put-dynamite ]
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
