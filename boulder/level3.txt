@@ -2,12 +2,12 @@
 XXXXXXXXXXX
 X H       X
 XXX     XXX
-X        AX
+X         X
 X...R.R...X
 X.........X
 X         X
-X         X
-X..WWWWW..X
+X  R   R  X
+X..XWWWX..X
 X..     ..X
 X..     ..X
 X..     ..X

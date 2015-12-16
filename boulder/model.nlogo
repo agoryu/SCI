@@ -12,16 +12,19 @@ breed [dirt]
 breed [blast]
 breed [magicwalls magicwall]
 breed [amoebas amoeba]
+breed [dynamite]
 
-globals       [ score nb-to-collect countdown ]
-heros-own     [ moving? orders ]
-diamonds-own  [ moving? ]
-monsters-own  [ moving? right-handed? ]
-rocks-own     [ moving? ]
+globals       [ score nb-to-collect countdown time ]
+heros-own     [ moving? orders destructible? ]
+diamonds-own  [ moving? destructible? ]
+monsters-own  [ moving? right-handed? destructible? ]
+rocks-own     [ moving? destructible? ]
 walls-own     [ destructible? ]
-doors-own     [ open? ]
-blast-own     [ strength diamond-maker? nbBlast ]
+doors-own     [ open? destructible? ]
+blast-own     [ strength diamond-maker? nbBlast destructible? ]
 magicwalls-own     [ destructible? ]
+dirt-own [ destructible? ]
+dynamite-own [ destructible? ]
 
 
 to setup
@@ -32,6 +35,7 @@ to setup
   ioda:setup
   ioda:set-metric "Moore"
   reset-ticks
+  set time 0
 end
 
 to go
@@ -117,6 +121,7 @@ to init-hero
   set color red
   set moving? false
   set orders []
+  set destructible? true
 end
 
 to init-door
@@ -125,6 +130,7 @@ to init-door
   set color blue - 4
   set shape "tile brick"
   set open? false
+  set destructible? false
 end
 
 
@@ -135,6 +141,7 @@ to init-monster
   set moving? true
   set right-handed? (random 2 = 0)
   if (right-handed?) [ set shape "butterfly" ]
+  set destructible? true
 end
 
 to init-rock
@@ -142,6 +149,7 @@ to init-rock
   set color gray + 2
   set heading random 360
   set moving? false
+  set destructible? true
 end
 
 to init-diamond
@@ -149,6 +157,7 @@ to init-diamond
   set color cyan
   set heading 180
   set moving? false
+  set destructible? true
 end
 
 to init-blast [ dm? str ]
@@ -156,13 +165,13 @@ to init-blast [ dm? str ]
   set color orange
   set strength str
   set diamond-maker? dm?
-  set nbBlast 4
-  set heading 0
+  set destructible? true
 end
 
 to init-dirt
   ioda:init-agent
   set color brown + 3
+  set destructible? true
 end
 
 to init-wall [ d ]
@@ -175,7 +184,7 @@ end
 to init-magicwall
   ioda:init-agent
   ; TODO: on ne peut pas marcher dessus, mais les rochers passent au travers
-  ;set destructible? false
+  set destructible? false
   set color orange
   set shape "tile brick"
 end
@@ -184,9 +193,15 @@ to init-amoeba
   ioda:init-agent
   set color pink
   set shape "tile log"
+  set destructible? true
 end
 
-
+to init-dynamite
+  ioda:init-agent
+  set color red
+  set shape "face sad"
+  set destructible? true
+end
 
 ; primitives that are shared by several breeds
 
@@ -226,6 +241,8 @@ end
 ; blast-related primitives
 ; ========================
 to blast::die
+  ;if diamond-maker?
+  ;[ hatch-diamonds 1 [init-diamond] ]
   ioda:die
 end
 
@@ -238,13 +255,23 @@ to-report blast::nothing-ahead?
 end
 
 to-report blast::propagate?
-  report nbBlast > 0
+  if strength < 1 [ ioda:die report false ]
+  report true
 end
 
 to blast::create-blast
-   hatch-blast 1 [ init-blast true strength - 1 fd 1 ]
-   set heading heading + 90
-   set nbBlast nbBlast - 1
+  set strength strength - 1
+  let new-strength strength
+  ask neighbors
+    [ if not any? blast-here
+      [ if any? turtles-here
+        [ ask turtles-here
+          [ if destructible? [ioda:die]
+          ]
+        ]
+      sprout-blast 1 [ init-blast false new-strength ]
+      ]
+     ]
 end
 
 ; ========================
@@ -420,7 +447,25 @@ to dirt::die
   ioda:die
 end
 
+; =======================
+; dynamite-related primitives
+; =======================
 
+to-report dynamite::explode?
+  report time < 1
+end
+
+to dynamite::create-blast
+  hatch-blast 1 [ init-blast true 3 ]
+end
+
+to dynamite::filter-neighbors
+  ioda:filter-neighbors-in-radius halo-of-hero
+end
+
+to dynamite::die
+  ioda:die
+end
 
 ; =======================
 ; hero-related primitives
@@ -428,6 +473,12 @@ end
 
 to send-message [ value ]
   set orders lput value orders
+  set time time - 1
+end
+
+to heros::put-dynamite
+  if default::nothing-ahead? 1
+  [ set time 5 hatch-dynamite 1 [init-dynamite fd 1] ]
 end
 
 to heros::filter-neighbors
@@ -489,8 +540,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-822
-491
+1242
+791
 -1
 -1
 30.0
@@ -504,8 +555,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-10
--14
+24
+-24
 0
 1
 1
@@ -677,7 +728,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-3
+1
 
 MONITOR
 287
@@ -700,6 +751,23 @@ step-by-step?
 0
 1
 -1000
+
+BUTTON
+284
+417
+381
+450
+dynamite
+ask heros [ heros::put-dynamite ]
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 Elliot Vanegue et Gaëtan Deflandre
