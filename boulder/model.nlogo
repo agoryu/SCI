@@ -702,44 +702,58 @@ step-by-step?
 -1000
 
 @#$#@#$#@
-## WHAT IS IT?
+Elliot Vanegue et Gaëtan Deflandre
+==================================
 
-This file is a basic implementation of the "Boulder Dash" video game (1984) within the IODA NetLogo extension.
+# Boulder dash
 
-## HOW IT WORKS
+## Introduction
 
-A cave is initialized in the setup procedure. The main character has to dig the dirt to collect all diamonds initially present without being killed by monsters or falling rocks or diamonds. Agents can move only in their von Neumann neighborhood (4 neighbors). When all diamonds have been collected, the hero must reach the exit that appears in the cave.
+Le projet reprend les concepts du jeu boulder dash qui a été créé en 1984 tout en utilisant la plateforme IODA développé par l'équipe SMAC de l'université de Lille.
 
+## But du jeux
 
-## HOW TO USE IT
+Le but du jeux est de faire rammasser à un héro un nombre défini de diamand dans le but d'ouvrir une porte menant au niveau suivant. Mais bien entendu de nombreux défis attendent notre héro. Il va falloir que celui-ci évite des roche qui tombe, fuit les monstres qui le pourchasse tout en creusant la terre dans un labyrinthe.
 
-You just have to click on **`setup`**, then on **`go`**. Your aim is to endow the character and the other agents with a better behavior than the initial one.
+Dans ce jeu les agents ne peuvent se déplacer que sur un voisinage de 4 cases (haut, bas, droite et gauche).
 
+## Règle du jeu
 
-## HOW TO CITE
+Plusieurs type d'agent sont présent dans le jeux :
 
-  * The **IODA methodology and simulation algorithms** (i.e. what is actually in use in this NetLogo extension):
-Y. KUBERA, P. MATHIEU and S. PICAULT (2011), "IODA: an interaction-oriented approach for multi-agent based simulations", in: _Journal of Autonomous Agents and Multi-Agent Systems (JAAMAS)_, vol. 23 (3), p. 303-343, Springer DOI: 10.1007/s10458-010-9164-z.
-  * The **key ideas** of the IODA methodology:
-P. MATHIEU and S. PICAULT (2005), "Towards an interaction-based design of behaviors", in: M.-P. Gleizes (ed.), _Proceedings of the The Third European Workshop on Multi-Agent Systems (EUMAS'2005)_.
-  * Do not forget to cite also **NetLogo** itself when you refer to the IODA NetLogo extension:
-U. WILENSKY (1999), NetLogo. http://ccl.northwestern.edu/netlogo Center for Connected Learning and Computer-Based Modeling, Northwestern University. Evanston, IL.
+* le hero : il peut être manipulé par le joueur ou être autonome. Il creuse la terre et peut poser de la dynamite pour faire exploser certain mur, les monstres et la terre.
+* les murs : il bloque le héro. Certains peuvent être détruit.
+* la terre : elle retient certain objet de tomber.
+* les explosions : elles sont créés lors de l'impacte d'une pierre avec un monstre ou le héro. Elle se propage sur une zone défini, détruisant tout ce qui est destructible (tout sauf certain mur).
+* les monstres : lors de la collision avec le héro ou une pierre il explose.
+* les murs magique : lorsqu'une pierre les traverse, la pierre se transforme en diamand.
+* les diamands : lorsqu'il tombe sur un monstre ou sur le héro, il explose comme les pierres.
 
-## COPYRIGHT NOTICE
+## Utilisation
 
-All contents &copy; 2008-2015 Sébastien PICAULT and Philippe MATHIEU
-Centre de Recherche en Informatique, Signal et Automatique de Lille (CRIStAL)
-UMR CNRS 9189 -- Université de Lille (Sciences et Technologies)
-Cité Scientifique, F-59655 Villeneuve d'Ascq Cedex, FRANCE.
-Web Site: http://www.lifl.fr/SMAC/projects/ioda
+Il est possible de déplacer le héro avec les touche :
 
-![SMAC team](file:../../doc/images/small-smac.png) &nbsp;&nbsp;&nbsp;  ![CRIStAL](file:../../doc/images/small-cristal.png) &nbsp;&nbsp;&nbsp; ![CNRS](file:../../doc/images/small-cnrs.png) &nbsp;&nbsp;&nbsp;  ![Université de Lille](file:../../doc/images/small-UL1.png)
+* Z : pour allez vers le haut
+* S : pour allez vers le bas
+* Q : pour allez à gauche
+* D : pour allez à droite
+* espace : déposer de la dynamite
 
-The IODA NetLogo extension is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+## Réprésentation des niveaux
 
-IODA NetLogo extension is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+Vous pouvez créer des niveaux dans un fichier texte avec les caractères ASCII suivant :
 
-You should have received a copy of the GNU General Public License along with the IODA NetLogo extension. If not, see http://www.gnu.org/licenses.
+* . : sable
+* D : diamant
+* H : héros du jeu
+* M : monstre
+* m : mur "magique"
+* O : porte de sortie
+* R : pierre
+* X : mur non-destructible
+* x : mur destructible
+
+La première ligne du fichier contient la taille du niveau [longueur largeur]
 @#$#@#$#@
 default
 true
