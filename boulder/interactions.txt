@@ -94,3 +94,8 @@ parallel interaction Explosion
   condition	     explode?
   actions 	     create-blast die
 end
+
+parallel interaction Diamondize
+  condition       inside-magicwall?
+  actions         diamondization
+end

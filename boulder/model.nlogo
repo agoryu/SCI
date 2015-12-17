@@ -274,6 +274,8 @@ to blast::create-blast
      ]
 end
 
+
+
 ; ========================
 ; doors-related primitives
 ; ========================
@@ -400,6 +402,25 @@ to-report rocks::can-roll?
   report false
 end
 
+to-report rocks::inside-magicwall?
+  report any? magicwalls-here
+end
+
+to rocks::diamondization
+  ioda:die
+  ask patch-here [
+    sprout-diamonds 1 [init-diamond]
+    ask diamonds-here [
+      set moving? true
+      diamonds::move-down
+    ]
+  ]
+end
+
+to-report rocks::above-magicwall?
+
+end
+
 
 
 ; ===========================
@@ -447,6 +468,8 @@ to dirt::die
   ioda:die
 end
 
+
+
 ; =======================
 ; dynamite-related primitives
 ; =======================
@@ -466,6 +489,8 @@ end
 to dynamite::die
   ioda:die
 end
+
+
 
 ; =======================
 ; hero-related primitives
@@ -540,8 +565,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+822
+491
 -1
 -1
 30.0
@@ -555,8 +580,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+10
+-14
 0
 1
 1
@@ -728,7 +753,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-1
+3
 
 MONITOR
 287
