@@ -1,8 +1,8 @@
 [11 15]
 XXXXXXXXXXX
 X H       X
-XXX     XXX
-X         X
+XX       XX
+X   D R   X
 X...R.R...X
 X.........X
 X         X

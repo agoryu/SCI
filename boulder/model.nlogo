@@ -610,8 +610,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+822
+491
 -1
 -1
 30.0
@@ -625,8 +625,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+10
+-14
 0
 1
 1
@@ -798,7 +798,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-1
+3
 
 MONITOR
 287
@@ -848,7 +848,7 @@ ndynamite
 ndynamite
 0
 10
-5
+10
 1
 1
 NIL

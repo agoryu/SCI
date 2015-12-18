@@ -29,6 +29,7 @@ diamonds	StopFalling 	 10 	dirt		 1
 diamonds	StopFalling 	 10 	diamonds 	 1
 diamonds	StopFalling 	 10 	rocks		 1
 diamonds	StopFalling 	 10 	doors		 1
+diamonds	StopFalling 	 10 	magicwalls 1
 diamonds	Explode 	 50 	monsters	 1
 diamonds	Explode 	 50 	heros		 1
 
