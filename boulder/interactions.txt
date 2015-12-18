@@ -23,6 +23,7 @@ end
 
 parallel interaction StartFalling
   trigger	     nothing-below?
+  trigger      is-rock? magicwall-below?
   condition	     not:moving?
   actions	     start-moving
 end

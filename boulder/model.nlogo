@@ -217,6 +217,10 @@ to-report default::obstacle-ahead? [d]
   report any? turtles-on patch-ahead d
 end
 
+to-report default::is-rock?
+  report false
+end
+
 to-report default::moving?
   report moving?
 end
@@ -274,6 +278,10 @@ to blast::create-blast
      ]
 end
 
+to-report blast::is-rock?
+  report default::is-rock?
+end
+
 
 
 ; ========================
@@ -300,6 +308,10 @@ to doors::change-state
     [ set color blue - 4
       set shape "tile brick"
     ]
+end
+
+to-report doors::is-rock?
+  report default::is-rock?
 end
 
 
@@ -339,6 +351,10 @@ end
 
 to diamonds::die
   ioda:die
+end
+
+to-report diamonds::is-rock?
+  report default::is-rock?
 end
 
 
@@ -417,8 +433,16 @@ to rocks::diamondization
   ]
 end
 
-to-report rocks::above-magicwall?
+to-report rocks::is-rock?
+  report true
+end
 
+to-report rocks::magicwall-below?
+  report any? magicwalls-on patch-at 0 -1
+end
+
+to rocks::test
+  user-message "Test !"
 end
 
 
@@ -458,6 +482,10 @@ to monsters::create-blast
   hatch-blast 1 [ init-blast dm? 3 ]
 end
 
+to-report monsters::is-rock?
+  report default::is-rock?
+end
+
 
 
 ; =======================
@@ -466,6 +494,10 @@ end
 
 to dirt::die
   ioda:die
+end
+
+to-report dirt::is-rock?
+  report default::is-rock?
 end
 
 
