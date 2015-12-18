@@ -515,7 +515,7 @@ to-report dynamite::explode?
 end
 
 to dynamite::create-blast
-  hatch-blast 1 [ init-blast true 3 ]
+  hatch-blast 1 [ init-blast true 2 ]
 end
 
 to dynamite::filter-neighbors
@@ -831,10 +831,10 @@ NIL
 1
 
 SLIDER
-278
-176
-450
-209
+276
+170
+448
+203
 ndynamite
 ndynamite
 0
