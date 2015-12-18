@@ -61,10 +61,4 @@ heros   Push   10   rocks    1
 heros		Dig		 20 	dirt		 1
 heros		Collect		 80    	diamonds	 1
 heros		Explode		 100    monsters	 0
-heros	AdvanceH		 10
-heros	TurnH		 20 	walls		 1
-heros	TurnH		 20 	dirt		 1
-heros	TurnH		 20 	diamonds	 1
-heros	TurnH		 20 	rocks		 1
-heros	TurnH		 20 	doors		 1
-heros	TurnH		 20 	monsters	 1
+heros	Auto-Move 100 UPDATE
