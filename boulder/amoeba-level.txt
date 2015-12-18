@@ -1,0 +1,16 @@
+[20 15]
+XXXXXXXXXXXXXXXXXXXX
+X H                X
+XXXXX              X
+X..................X
+X.XXXXXXX..XXXXXXX.X
+X.X     X..X.....X.X
+X.X     X..X.....X.X
+X.X     X..X.....X.X
+X.X  A  X..X..A..X.X
+X.X     X..X.....X.X
+X.X     X..X.....X.X
+X.X     X..X.....X.X
+X.XXXXXXX..XXXXXXX X
+X..................O
+XXXXXXXXXXXXXXXXXXXX
