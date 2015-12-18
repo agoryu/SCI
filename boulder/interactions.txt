@@ -105,3 +105,18 @@ parallel interaction Auto-Move
   condition 	     automatise?
   actions	     send-message-auto
 end
+
+parallel interaction Grow
+  condition        can-grown?
+  actions          grow
+end
+
+parallel interaction DiamondizeAm
+  condition       amoebas-stagnate?
+  actions         diamondization
+end
+
+parallel interaction TransformToRock
+  condition       too-many-amoebas?
+  actions         transform-to-rock
+end

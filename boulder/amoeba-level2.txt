@@ -1,0 +1,14 @@
+[15 13]
+XXXXXXXXXXXXXXX
+X H  .........X
+X.............X
+X.............X
+X.XXXxxxxXXXX.X
+X.X.........X.X
+X.X...A.....X.X
+X.X.........X.X
+X.XXXXXXXXXXX.X
+X.............O
+XXXXXXXXXXXXXXX
+X  D  DDD  D  X
+XXXXXXXXXXXXXXX

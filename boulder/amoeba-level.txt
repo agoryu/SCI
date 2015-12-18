@@ -3,14 +3,14 @@ XXXXXXXXXXXXXXXXXXXX
 X H                X
 XXXXX              X
 X..................X
-X.XXXXXXX..XXXXXXX.X
+X.XXXxXXX..XXXxXXX.X
 X.X     X..X.....X.X
-X.X     X..X.....X.X
+X.XM    X..X.....X.X
 X.X     X..X.....X.X
 X.X  A  X..X..A..X.X
 X.X     X..X.....X.X
 X.X     X..X.....X.X
 X.X     X..X.....X.X
-X.XXXXXXX..XXXXXXX X
+X.XXXXXXX..XXXXXXX.X
 X..................O
 XXXXXXXXXXXXXXXXXXXX

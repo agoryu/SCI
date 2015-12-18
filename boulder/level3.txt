@@ -7,7 +7,7 @@ X...R.R...X
 X.........X
 X         X
 X  R   R  X
-X..XWWWX..X
+X..XmmmX..X
 X..     ..X
 X..     ..X
 X..     ..X

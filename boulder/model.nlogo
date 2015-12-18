@@ -14,7 +14,7 @@ breed [magicwalls magicwall]
 breed [amoebas amoeba]
 breed [dynamite]
 
-globals       [ score nb-to-collect countdown time ]
+globals       [ score nb-to-collect countdown time amoebas-amout prev-amoebas-amout stagnation-count amoebas-stagnate? too-many-amoebas? ]
 heros-own     [ moving? orders destructible? nb-dynamite ]
 diamonds-own  [ moving? destructible? ]
 monsters-own  [ moving? right-handed? destructible? ]
@@ -22,9 +22,10 @@ rocks-own     [ moving? destructible? ]
 walls-own     [ destructible? ]
 doors-own     [ open? destructible? ]
 blast-own     [ strength diamond-maker? nbBlast destructible? ]
-magicwalls-own     [ destructible? ]
-dirt-own [ destructible? ]
-dynamite-own [ destructible? ]
+magicwalls-own [ destructible? ]
+dirt-own      [ destructible? ]
+dynamite-own  [ destructible? ]
+amoebas-own   [ destructible? ]
 
 
 to setup
@@ -81,10 +82,10 @@ to create-agent [ char ]
                             [ sprout-monsters 1 [ init-monster ]]
                             [ ifelse (char = ".")
                                 [ sprout-dirt 1 [ init-dirt ] ]
-                                [ ifelse (char = "W")
+                                [ ifelse (char = "m")
                                     [ sprout-magicwalls 1 [ init-magicwall ] ]
                                     [ ifelse (char = "A")
-                                       [ sprout-amoebas 1 [ init-amoeba] ]
+                                       [ sprout-amoebas 1 [ init-amoeba ] ]
                                        [
                                            ;;;;;; other agents ?
                                        ]
@@ -113,6 +114,12 @@ to init-world
   read-level (word level ".txt")
   set countdown 0
   set nb-to-collect count diamonds
+  set amoebas-amout 0
+  set prev-amoebas-amout 0
+  set amoebas-speed 10
+  set stagnation-count 0
+  set amoebas-stagnate? false
+  set too-many-amoebas? false
 end
 
 to init-hero
@@ -194,6 +201,9 @@ to init-amoeba
   set color pink
   set shape "tile log"
   set destructible? true
+  set prev-amoebas-amout amoebas-amout
+  set amoebas-amout ( amoebas-amout + 1 )
+  set stagnation-count 0
 end
 
 to init-dynamite
@@ -223,6 +233,10 @@ end
 
 to-report default::moving?
   report moving?
+end
+
+to-report default::is-amoeba?
+  report false
 end
 
 to default::start-moving
@@ -275,7 +289,11 @@ to blast::create-blast
     [ if not any? blast-here
       [ if any? turtles-here
         [ ask turtles-here
-          [ if destructible? [ioda:die]
+          [ if destructible?
+            [ ioda:die
+              ;if is-amoeba?
+              ;[ set amoebas-amout ( amoebas-amout - 1 ) ]
+            ]
           ]
         ]
       sprout-blast 1 [ init-blast false new-strength ]
@@ -285,6 +303,10 @@ end
 
 to-report blast::is-rock?
   report default::is-rock?
+end
+
+to-report blast::is-amoeba?
+  report default::is-amoeba?
 end
 
 
@@ -317,6 +339,105 @@ end
 
 to-report doors::is-rock?
   report default::is-rock?
+end
+
+
+to-report doors::is-amoeba?
+  report default::is-amoeba?
+end
+
+
+
+; ==========================
+; amoebas-related primitives
+; ==========================
+
+to-report amoebas::can-grown?
+  let rdm random 2000
+  if ( rdm < amoebas-speed )
+  [
+    report true
+  ]
+  report false
+end
+
+to amoebas::grow
+  ask neighbors [
+    let turtles-neighbors ([breed] of turtles-here)
+    if (not any? turtles-here) or ((first turtles-neighbors = dirt) and (length turtles-neighbors = 1)) [
+      if not empty? turtles-neighbors and first turtles-neighbors = dirt [
+        ask dirt-here [
+          ioda:die
+        ]
+      ]
+      sprout-amoebas 1 [ init-amoeba ]
+    ]
+  ]
+
+  if ( amoebas-amout > 50 )
+  [
+    set too-many-amoebas? true
+  ]
+
+  if ( amoebas-amout = ( prev-amoebas-amout + 1 ) )
+  [
+    set stagnation-count ( stagnation-count + 1 )
+  ]
+
+  if ( stagnation-count > 50 )
+  [
+    set amoebas-stagnate? true
+  ]
+end
+
+to amoebas::die
+  set amoebas-amout ( amoebas-amout - 1 )
+  ioda:die
+end
+
+to-report amoebas::is-rock?
+  report default::is-rock?
+end
+
+to-report amoebas::is-amoeba?
+  report default::is-amoeba?
+end
+
+
+to-report amoebas::amoebas-stagnate?
+  report amoebas-stagnate?
+end
+
+to-report amoebas::too-many-amoebas?
+  report too-many-amoebas?
+end
+
+to amoebas::diamondization
+  set amoebas-amout 0
+  set prev-amoebas-amout 0
+  set stagnation-count 0
+
+  ioda:die
+  ask patch-here [
+    sprout-diamonds 1 [init-diamond]
+    ask diamonds-here [
+      set moving? true
+    ]
+  ]
+end
+
+to amoebas::transform-to-rock
+  set amoebas-amout 0
+  set prev-amoebas-amout 0
+  set stagnation-count 0
+
+  ioda:die
+  ask patch-here [
+    sprout-rocks 1 [init-rock]
+    ask rocks-here [
+      set moving? true
+    ]
+  ]
 end
 
 
@@ -360,6 +481,11 @@ end
 
 to-report diamonds::is-rock?
   report default::is-rock?
+end
+
+
+to-report diamonds::is-amoeba?
+  report default::is-amoeba?
 end
 
 
@@ -446,11 +572,6 @@ to-report rocks::magicwall-below?
   report any? magicwalls-on patch-at 0 -1
 end
 
-to rocks::test
-  user-message "Test !"
-end
-
-
 
 ; ===========================
 ; monsters-related primitives
@@ -491,6 +612,10 @@ to-report monsters::is-rock?
   report default::is-rock?
 end
 
+to-report monsters::is-amoeba?
+  report default::is-amoeba?
+end
+
 
 
 ; =======================
@@ -505,11 +630,15 @@ to-report dirt::is-rock?
   report default::is-rock?
 end
 
+to-report dirt::is-amoeba?
+  report default::is-amoeba?
+end
 
 
-; =======================
+
+; ===========================
 ; dynamite-related primitives
-; =======================
+; ===========================
 
 to-report dynamite::explode?
   report time < 1
@@ -529,6 +658,10 @@ end
 
 to-report dynamite::is-rock?
   report default::is-rock?
+end
+
+to-report dynamite::is-amoeba?
+  report default::is-amoeba?
 end
 
 
@@ -618,12 +751,16 @@ end
 to-report heros::is-rock?
   report default::is-rock?
 end
+
+to-report heros::is-amoeba?
+  report default::is-amoeba?
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 482
 10
-1242
-791
+1092
+491
 -1
 -1
 30.0
@@ -637,8 +774,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-24
--24
+19
+-14
 0
 1
 1
@@ -805,12 +942,12 @@ nb-to-collect
 CHOOSER
 278
 63
-416
+432
 108
 level
 level
-"level0" "level1" "level2" "level3"
-1
+"level0" "level1" "level2" "level3" "amoeba-level" "amoeba-level2"
+4
 
 MONITOR
 287
@@ -860,7 +997,7 @@ ndynamite
 ndynamite
 0
 10
-10
+5
 1
 1
 NIL
@@ -876,6 +1013,21 @@ IA
 0
 1
 -1000
+
+SLIDER
+85
+170
+267
+203
+amoebas-speed
+amoebas-speed
+0
+500
+10
+5
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 Elliot Vanegue et Gaëtan Deflandre
