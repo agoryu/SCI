@@ -537,6 +537,10 @@ to send-message [ value ]
   set time time - 1
 end
 
+to-report heros::automatise?
+  report IA
+end
+
 to heros::put-dynamite
   if default::nothing-ahead? 1 and nb-dynamite > 0
   [ set time 5 hatch-dynamite 1 [init-dynamite fd 1] set nb-dynamite nb-dynamite - 1]
@@ -844,6 +848,17 @@ ndynamite
 1
 NIL
 HORIZONTAL
+
+SWITCH
+295
+234
+398
+267
+IA
+IA
+0
+1
+-1000
 
 @#$#@#$#@
 Elliot Vanegue et Gaëtan Deflandre
