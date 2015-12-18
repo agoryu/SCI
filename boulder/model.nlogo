@@ -15,7 +15,7 @@ breed [amoebas amoeba]
 breed [dynamite]
 
 globals       [ score nb-to-collect countdown time ]
-heros-own     [ moving? orders destructible? ]
+heros-own     [ moving? orders destructible? nb-dynamite ]
 diamonds-own  [ moving? destructible? ]
 monsters-own  [ moving? right-handed? destructible? ]
 rocks-own     [ moving? destructible? ]
@@ -122,6 +122,7 @@ to init-hero
   set moving? false
   set orders []
   set destructible? true
+  set nb-dynamite ndynamite
 end
 
 to init-door
@@ -241,9 +242,12 @@ end
 ; blast-related primitives
 ; ========================
 to blast::die
-  ;if diamond-maker?
-  ;[ hatch-diamonds 1 [init-diamond] ]
   ioda:die
+end
+
+to blast::create-diamond
+  if diamond-maker?
+  [ hatch-diamonds 1 [init-diamond] ]
 end
 
 to blast::filter-neighbors
@@ -255,7 +259,7 @@ to-report blast::nothing-ahead?
 end
 
 to-report blast::propagate?
-  if strength < 1 [ ioda:die report false ]
+  if strength < 1 [ blast::create-diamond ioda:die report false ]
   report true
 end
 
@@ -502,8 +506,8 @@ to send-message [ value ]
 end
 
 to heros::put-dynamite
-  if default::nothing-ahead? 1
-  [ set time 5 hatch-dynamite 1 [init-dynamite fd 1] ]
+  if default::nothing-ahead? 1 and nb-dynamite > 0
+  [ set time 5 hatch-dynamite 1 [init-dynamite fd 1] set nb-dynamite nb-dynamite - 1]
 end
 
 to heros::filter-neighbors
@@ -565,8 +569,8 @@ end
 GRAPHICS-WINDOW
 482
 10
-822
-491
+1242
+791
 -1
 -1
 30.0
@@ -580,8 +584,8 @@ GRAPHICS-WINDOW
 0
 1
 0
-10
--14
+24
+-24
 0
 1
 1
@@ -753,7 +757,7 @@ CHOOSER
 level
 level
 "level0" "level1" "level2" "level3"
-3
+1
 
 MONITOR
 287
@@ -793,6 +797,21 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+278
+176
+450
+209
+ndynamite
+ndynamite
+0
+10
+5
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 Elliot Vanegue et Gaëtan Deflandre
