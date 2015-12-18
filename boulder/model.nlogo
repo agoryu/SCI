@@ -134,7 +134,6 @@ to init-door
   set destructible? false
 end
 
-
 to init-monster
   ioda:init-agent
   set heading 90 * random 4
@@ -241,6 +240,8 @@ end
 to default::move-forward
   move-to patch-ahead 1
 end
+
+
 
 ; ========================
 ; blast-related primitives
@@ -526,6 +527,10 @@ to dynamite::die
   ioda:die
 end
 
+to-report dynamite::is-rock?
+  report default::is-rock?
+end
+
 
 
 ; =======================
@@ -600,6 +605,10 @@ end
 to heros::increase-score
   set score score + 1
   set nb-to-collect nb-to-collect - 1
+end
+
+to-report heros::is-rock?
+  report default::is-rock?
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
