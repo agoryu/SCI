@@ -877,39 +877,39 @@ Elliot Vanegue et Gaëtan Deflandre
 
 ## Introduction
 
-Le projet reprend les concepts du jeu boulder dash qui a été créé en 1984 tout en utilisant la plateforme IODA développé par l'équipe SMAC de l'université de Lille.
+Le projet reprend les concepts du jeu boulder dash qui a été créé en 1984 tout en utilisant la plateforme IODA développée par l'équipe SMAC de l'université de Lille.
 
-## But du jeux
+## But du jeu
 
-Le but du jeux est de faire rammasser à un héro un nombre défini de diamand dans le but d'ouvrir une porte menant au niveau suivant. Mais bien entendu de nombreux défis attendent notre héro. Il va falloir que celui-ci évite des roche qui tombe, fuit les monstres qui le pourchasse tout en creusant la terre dans un labyrinthe.
+Le but du jeu est de faire rammasser à un héros un nombre défini de diamants dans le but d'ouvrir une porte menant au niveau suivant. Mais bien entendu de nombreux défis attendent notre héros. Il va falloir que celui-ci évite des roches qui tombent, fuit les monstres qui le pourchassent tout en creusant la terre dans un labyrinthe.
 
 Dans ce jeu les agents ne peuvent se déplacer que sur un voisinage de 4 cases (haut, bas, droite et gauche).
 
 ## Règle du jeu
 
-Plusieurs type d'agent sont présent dans le jeux :
+Plusieurs types d'agent sont présents dans le jeu :
 
-* le hero : il peut être manipulé par le joueur ou être autonome. Il creuse la terre et peut poser de la dynamite pour faire exploser certain mur, les monstres et la terre.
-* les murs : il bloque le héro. Certains peuvent être détruit.
-* la terre : elle retient certain objet de tomber.
-* les explosions : elles sont créés lors de l'impacte d'une pierre avec un monstre ou le héro. Elle se propage sur une zone défini, détruisant tout ce qui est destructible (tout sauf certain mur).
-* les monstres : lors de la collision avec le héro ou une pierre il explose.
-* les murs magique : lorsqu'une pierre les traverse, la pierre se transforme en diamand.
-* les diamands : lorsqu'il tombe sur un monstre ou sur le héro, il explose comme les pierres.
+* le héros : il peut être manipulé par le joueur ou être autonome. Il creuse la terre et peut poser de la dynamite pour faire exploser certains murs, les monstres et la terre.
+* les murs : ils bloquent le héros. Certains peuvent être détruits.
+* la terre : elle retient certains objets de tomber.
+* les explosions : elles sont créées lors de l'impact d'une pierre avec un monstre ou le héros. Elles se propagent sur une zone définie, détruisant tout ce qui est destructible (tout sauf certains murs).
+* les monstres : lors de la collision avec le héros ou une pierre ils explosent.
+* les murs magiques : lorsqu'une pierre les traverse, la pierre se transforme en diamant.
+* les diamants : lorsqu'ils tombent sur un monstre ou sur le héros, ils explosent comme les pierres.
 
 ## Utilisation
 
-Il est possible de déplacer le héro avec les touche :
+Il est possible de déplacer le héros avec les touches :
 
-* Z : pour allez vers le haut
-* S : pour allez vers le bas
-* Q : pour allez à gauche
-* D : pour allez à droite
+* Z : pour aller vers le haut
+* S : pour aller vers le bas
+* Q : pour aller à gauche
+* D : pour aller à droite
 * espace : déposer de la dynamite
 
 ## Réprésentation des niveaux
 
-Vous pouvez créer des niveaux dans un fichier texte avec les caractères ASCII suivant :
+Vous pouvez créer des niveaux dans un fichier texte avec les caractères ASCII suivants :
 
 * . : sable
 * D : diamant
@@ -920,6 +920,7 @@ Vous pouvez créer des niveaux dans un fichier texte avec les caractères ASCII 
 * R : pierre
 * X : mur non-destructible
 * x : mur destructible
+* A : amibe
 
 La première ligne du fichier contient la taille du niveau [longueur largeur]
 @#$#@#$#@
